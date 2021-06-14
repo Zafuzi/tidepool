@@ -1,0 +1,4 @@
+[submodule "squids"]
+	path = squids
+	url = git@github.com:sleeplessinc/squids
+	branch = pixi
