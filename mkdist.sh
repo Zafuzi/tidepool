@@ -7,7 +7,7 @@ if [[ " $@ " =~ "-c " ]]; then
 fi
 
 
-# echo "creating 'dist' ..."
+echo "creating 'dist' ..."
 mkdir -p dist
 
 cp index.html dist
