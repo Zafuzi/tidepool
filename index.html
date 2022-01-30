@@ -1,20 +1,32 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
 		<title>Tidepool</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<style>
-			* { margin: 0; padding: 0; }
 			body, html {
 				width: 100vw;
 				height: 100vh;
 				overflow: hidden;
-				background: #000;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				flex-flow: column;
+				align-items: center;
+				justify-content: center;
+				background-color: black;
+			}
+			canvas {
+				overflow: hidden;
+				position: relative !important;
 			}
 		</style>
 	</head>
 	<body>
-		<script src="squids.min.js"></script>
-		<script src="local.js"></script>
+		<script src=lib/squids.min.js></script>
+		<script src=lib/input.js></script>
+		<script src=nodes/slime.js></script>
+		<script src=game.js></script>
 	</body>
 </html>
