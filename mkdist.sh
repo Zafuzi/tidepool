@@ -28,8 +28,8 @@ done
 
 if [[ " $@ " =~ "-z " ]]; then
   echo "creating dist.zip"
-	zip -r dist.zip dist;
 	rm dist.zip
+	zip -r dist.zip dist;
 fi
 
 if [[ " $@ " =~ "-p " ]]; then
