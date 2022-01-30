@@ -34,7 +34,6 @@ fi
 if [[ " $@ " =~ "-p " ]]; then
 	# edit this line to push to itch
 	butler push dist username/game_name:html5;
-	butler status username/game_name:html5
 fi
 
 if [[ " $@ " =~ "-s " ]]; then
