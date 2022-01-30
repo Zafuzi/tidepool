@@ -14,7 +14,7 @@ _______________________________________________________________________________
 - structure -
 	squids.min.js		=> npm distributable of the squids game engine
 	index.html	        => loads game.js
-	game.js	            => game code
+	game.js             => game code
 	nodes/*.js	        => individual nodes for the game like player, enemy, etc...
 
 - how to use -
