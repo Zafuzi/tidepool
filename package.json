@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "squids": "^5.0.0"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^3.1.0",
+    "uglify-js": "^3.15.0"
   }
 }
