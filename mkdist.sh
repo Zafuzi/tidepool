@@ -3,7 +3,6 @@
 if [[ " $@ " =~ "-c " ]]; then
 	echo "removing old 'dist' ..."
 	rm -rf dist
-	rm dist.zip
 fi
 
 
@@ -28,7 +27,9 @@ do
 done
 
 if [[ " $@ " =~ "-z " ]]; then
+  echo "creating dist.zip"
 	zip -r dist.zip dist;
+	rm dist.zip
 fi
 
 if [[ " $@ " =~ "-p " ]]; then
