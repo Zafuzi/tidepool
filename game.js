@@ -1,6 +1,20 @@
-let screen = vec(1600, 900);
+let screen = vec(800, 600);
 canvas.width = screen.x;
 canvas.height = screen.y;
+
+let assets = {};
+
+let images = [
+	"data/slime1.png"
+];
+let sounds = [];
+
+
+let canvas_size = {
+	x: 0, y: 0, width: screen.x, height: screen.y
+};
+
+let mouse = vec(0, 0);
 
 document.addEventListener("DOMContentLoaded", function()
 {
@@ -46,6 +60,28 @@ document.addEventListener("DOMContentLoaded", function()
 			}
 		});
 
-	slime();
-	tick(true);
+	brain.listen("mousemove", function(mx, my, event)
+	{
+		mouse = local_mouse(event.clientX, event.clientY);
+
+	});
+
+	function local_mouse(mx, my)
+	{
+		let px = ((mx) - canvas_size.x) * canvas_size.scale;
+		let py = ((my) - canvas_size.y) * canvas_size.scale;
+
+		return vec(px, py)
+	}
+
+	load_assets(images, sounds, function(progress, file, asset, type)
+	{
+		assets[file] = asset;
+		console.log(type, file);
+		if(progress >= 1.0)
+		{
+			slime();
+			tick(true);
+		}
+	});
 });

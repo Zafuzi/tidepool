@@ -1,13 +1,12 @@
 function slime()
 {
-	load_image("data/slime1.png", function(slime_img)
+	let slime_img = assets["data/slime1.png"];
+	let sq = new Squid(vec(100, 100), slime_img);
+		sq.speed = 4;
+		sq.velocity.x = -sq.speed;
+		sq.velocity.y = -sq.speed;
+	sq.listen("tick", function()
 	{
-		let sq = new Squid(vec(100, 100), slime_img);
-			sq.speed = 4;
-			sq.velocity.x = -sq.speed;
-			sq.velocity.y = -sq.speed;
-		sq.listen("tick", function()
-		{
 			if(sq.position.x + slime_img.size().x / 2 - 8 > screen.x)
 			{
 				sq.velocity.x = -sq.speed;
@@ -28,5 +27,4 @@ function slime()
 				sq.velocity.y = sq.speed;
 			}
 		});
-	});
 }
