@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "adaptive-scale": "^1.0.0",
     "squids": "^5.2.3"
   },
   "devDependencies": {
