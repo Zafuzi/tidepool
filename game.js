@@ -5,14 +5,16 @@ let assets = {};
 let images = [
 	"data/slime1.png"
 ];
-let sounds = [];
+let sounds = [
+	"data/plink.ogg"
+];
+
+let can_play_audio = false;
 
 document.addEventListener("DOMContentLoaded", function()
 {
-	let brain = new Thing();
-		brain.listen("tick", function()
-		{
-		});
+	canvas.width = screen.x;
+	canvas.height = screen.y;
 
 	load_assets(images, sounds, function(progress, file, asset, type)
 	{
@@ -21,7 +23,13 @@ document.addEventListener("DOMContentLoaded", function()
 		if(progress >= 1.0)
 		{
 			slime();
+			//scale_canvas(screen);
 			tick(true);
 		}
+	});
+
+	document.addEventListener("mousedown", function()
+	{
+		can_play_audio = true;
 	});
 });
