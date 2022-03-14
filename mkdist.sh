@@ -13,7 +13,7 @@ cp index.html dist
 cp *.js dist
 cp -rL data dist
 cp -rL lib dist
-cp -rL nodes dist
+cp -rL components dist
 
 echo "minifying dist/game.js"
 node_modules/uglify-js/bin/uglifyjs dist/game.js --compress --mangle --output dist/game.js;
@@ -32,11 +32,13 @@ if [[ " $@ " =~ "-z " ]]; then
 	zip -r dist.zip dist;
 fi
 
+. ./itch.config
+
 if [[ " $@ " =~ "-p " ]]; then
 	# edit this line to push to itch
-	butler push dist username/game_name:html5;
+	butler push dist $username/$gameName:html5;
 fi
 
 if [[ " $@ " =~ "-s " ]]; then
-	butler status username/game_name:html5
+	butler status $username/$gameName:html5
 fi
