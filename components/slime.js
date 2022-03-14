@@ -5,8 +5,9 @@ function slime()
 
 	let sq = new Squid(vec(100, 100), slime_img);
 		sq.speed = 4;
-		sq.velocity.x = -sq.speed;
+		sq.velocity.x = sq.speed;
 		sq.velocity.y = -sq.speed;
+
 	sq.listen("tick", function()
 	{
 			if(sq.position.x + slime_img.size().x / 2 - 8 > screen.x)
@@ -32,5 +33,7 @@ function slime()
 				sq.velocity.y = sq.speed;
 				slime_collide_sound.play();
 			}
-		});
+
+			sq.rotation += degrees2radians(sq.velocity.x + sq.velocity.y * 0.4);
+	});
 }
