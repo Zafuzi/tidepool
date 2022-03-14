@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function()
 		if(progress >= 1.0)
 		{
 			slime();
-			//scale_canvas(screen);
+			scale_canvas(screen);
 			tick(true);
 		}
 	});
