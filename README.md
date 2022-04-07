@@ -39,6 +39,8 @@ Tidepool is setup to publish to itch using butler.
   - set the kind of project to `HTML`
   - make sure to click `save and view page` at the bottom to make your project visible to butler
     - you can set the project to `draft` to keep others from viewing your project.
-- Edit `itch.config` and change username to your itch username and gameName to your games unique id from above
+
+## UNIX ONLY AUTOMATION
+- Edit `deploy.sh` and change username to your itch username and gameName to your games unique id from above
 - run `./deploy.sh -p` the -p flag will attempt to upload to butler
   - optionally use `./deploy.sh -c -p` the `-c` will clean your local `dist` folder before generating the new package
