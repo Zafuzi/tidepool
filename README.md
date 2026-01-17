@@ -14,13 +14,13 @@ Tidepool is a simplified template that contains everything you need to make a ga
 ## structure
 
 - squids.full.min.js
-  - npm distributable of the squids game engine
+    - npm distributable of the squids game engine
 - index.html
-  - loads game.js
+    - loads game.js
 - game.js
-  - game code
+    - game code
 - components/\*.js
-  - individual nodes for the game like player, enemy, etc...
+    - individual nodes for the game like player, enemy, etc...
 
 ## how to use
 
@@ -35,13 +35,13 @@ Tidepool is setup to publish to itch using butler.
 
 - first go to itch and upload a new project
 - name your project and get the projects id from the Project URL field
-  - for example `https://zafuzi.itch.io/tidepool`, in this case we just want `tidepool`
-  - set the kind of project to `HTML`
-  - make sure to click `save and view page` at the bottom to make your project visible to butler
-    - you can set the project to `draft` to keep others from viewing your project.
+    - for example `https://zafuzi.itch.io/tidepool`, in this case we just want `tidepool`
+    - set the kind of project to `HTML`
+    - make sure to click `save and view page` at the bottom to make your project visible to butler
+        - you can set the project to `draft` to keep others from viewing your project.
 
 ## UNIX ONLY AUTOMATION
 
 - Edit `deploy.sh` and change username to your itch username and gameName to your games unique id from above
 - run `./deploy.sh -p` the -p flag will attempt to upload to butler
-  - optionally use `./deploy.sh -c -p` the `-c` will clean your local `dist` folder before generating the new package
+    - optionally use `./deploy.sh -c -p` the `-c` will clean your local `dist` folder before generating the new package
