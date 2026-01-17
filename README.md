@@ -31,7 +31,7 @@ Tidepool is a simplified template that contains everything you need to make a ga
 
 ## distribution
 
-Tidepool is setup to publish to itch using butler.
+Tidepool is set up to publish to itch using butler.
 
 - first go to itch and upload a new project
 - name your project and get the projects id from the Project URL field

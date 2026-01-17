@@ -1,7 +1,7 @@
 #!/bin/bash
 
-username=zafuzi
-gameName=tidepool
+user_name=zafuzi
+game_title=tidepool
 
 if [[ " $@ " =~ "-c " ]]; then
 	echo "removing old 'dist' ..."
@@ -25,9 +25,9 @@ fi
 
 if [[ " $@ " =~ "-p " ]]; then
 	# edit this line to push to itch
-	butler push dist $username/$gameName:html5;
+	butler push dist $user_name/$game_title:html5;
 fi
 
 if [[ " $@ " =~ "-s " ]]; then
-	butler status $username/$gameName:html5
+	butler status $user_name/$game_title:html5
 fi
