@@ -3,20 +3,6 @@
 user_name=zafuzi
 game_title=tidepool
 
-if [[ " $@ " =~ "-c " ]]; then
-	echo "removing old 'dist' ..."
-	rm -rf dist
-fi
-
-echo "creating 'dist' ..."
-mkdir -p dist
-
-cp index.html dist
-cp *.js dist
-cp -rL data dist
-cp -rL components dist
-
-
 if [[ " $@ " =~ "-z " ]]; then
   echo "creating dist.zip"
 	rm dist.zip
