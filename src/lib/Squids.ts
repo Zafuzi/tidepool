@@ -2,7 +2,6 @@ import { Assets, Point, Sprite, Ticker } from "pixi.js";
 
 export class Squid extends Sprite {
 	private vel: Point = new Point(0, 0);
-	private fade: Point = new Point(0, 0);
 
 	constructor(imagePath: string, x?: number, y?: number) {
 		super();
@@ -23,14 +22,6 @@ export class Squid extends Sprite {
 
 	set velocity(p: Point) {
 		this.vel = p;
-	}
-
-	get fadeRate() {
-		return this.fade;
-	}
-
-	set fadeRate(p: Point) {
-		this.fade = p;
 	}
 
 	onReady() {}

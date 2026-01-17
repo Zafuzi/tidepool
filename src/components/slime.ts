@@ -4,6 +4,7 @@ import { Squid } from "../lib/Squids.ts";
 
 export class Slime extends Squid {
 	private rot_vel: number = Math.random() > 0.5 ? Math.random() * 0.1 : Math.random() * -0.1;
+	private fade_rate: number = Math.random() < 0.5 ? Math.random() * 0.999 : Math.random() * -0.999;
 
 	constructor() {
 		const randx = Math.random();
@@ -12,7 +13,6 @@ export class Slime extends Squid {
 
 		this.anchor.set(0.5);
 		this.velocity = new Point(randx > 0.5 ? randx * 10 : randx * -10, randy > 0.5 ? randy * 10 : randy * -10);
-		this.fadeRate = new Point(randx * 0.999, randx * 0.999);
 	}
 
 	onReady() {
@@ -41,20 +41,20 @@ export class Slime extends Squid {
 		this.x += this.velocity.x * time.deltaTime;
 		this.y += this.velocity.y * time.deltaTime;
 
-		this.velocity.x *= this.fadeRate.x;
-		this.velocity.y *= this.fadeRate.y;
+		this.velocity.x *= this.fade_rate;
+		this.velocity.y *= this.fade_rate;
 
 		this.rotation += this.rot_vel * time.deltaTime;
 
 		if (this.scale.x < 0.5) {
-			this.fadeRate = new Point(1.001, 1.001);
+			this.fade_rate = 1.001;
 		}
 
 		if (this.scale.x > 1.2) {
-			this.fadeRate = new Point(0.999, 0.999);
+			this.fade_rate = 0.999;
 		}
 
-		this.scale.x *= this.fadeRate.x;
-		this.scale.y *= this.fadeRate.y;
+		this.scale.x *= this.fade_rate;
+		this.scale.y *= this.fade_rate;
 	}
 }
