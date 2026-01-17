@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	title = new Thing();
 	load_progress = 0;
 	load_file = "";
+	debug = true
 
 	title.listen("draw_4", (mouse_x, mouse_y) => {
 		if (load_progress < 1.0) {
