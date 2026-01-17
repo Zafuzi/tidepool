@@ -2,7 +2,7 @@ function slime() {
 	let slime_img = assets["data/slime1.png"];
 	let slime_collide_sound = assets["data/plink.ogg"];
 
-	let sq = new Squid(vec(Math.random() * 800, Math.random() * 600), slime_img);
+	let sq = new Squid(vec(Math.random() * screen.x, Math.random() * screen.y), slime_img);
 	const randx = Math.random()
 	const randy = Math.random()
 	sq.speed = Math.random();

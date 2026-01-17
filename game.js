@@ -1,4 +1,4 @@
-let screen = vec(800, 600);
+let screen = vec(window.innerWidth, window.innerHeight);
 
 let titleFont = load_font("Arial", 30, "#F09D28");
 
