@@ -17,7 +17,7 @@ export const App = new Application();
 	});
 
 	document.body.appendChild(App.canvas);
-	for (let i = 0; i < 20; i++) {
-		new Slime();
+	for (let i = 0; i < App.screen.height / 4; i++) {
+		new Slime(i);
 	}
 })();
