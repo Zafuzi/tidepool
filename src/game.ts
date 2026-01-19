@@ -1,8 +1,13 @@
-import { Application } from "pixi.js";
+import { Application, Assets } from "pixi.js";
 import { Slime } from "./components/slime.ts";
 
 export const App = new Application();
 (async () => {
+	// Initialize the asset system
+	await Assets.init({
+		basePath: "/",
+	});
+
 	await App.init({
 		background: "#1a1a1a",
 		resizeTo: window,

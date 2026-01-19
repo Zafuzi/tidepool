@@ -1,7 +1,6 @@
 import { Point, Ticker } from "pixi.js";
 import { App } from "../game.ts";
 import { Squid } from "../lib/Squids.ts";
-import slimeURL from "../public/slime1.png";
 
 export class Slime extends Squid {
 	private rot_vel: number = Math.random() > 0.5 ? Math.random() * 0.1 : Math.random() * -0.1;
@@ -10,7 +9,8 @@ export class Slime extends Squid {
 	constructor() {
 		const randx = Math.random();
 		const randy = Math.random();
-		super(slimeURL, Math.random() * App.screen.width, Math.random() * App.screen.height);
+		// Load multiple assets
+		super("slime1.png", Math.random() * App.screen.width, Math.random() * App.screen.height);
 
 		this.anchor.set(0.5);
 		this.velocity = new Point(randx > 0.5 ? randx * 10 : randx * -10, randy > 0.5 ? randy * 10 : randy * -10);
