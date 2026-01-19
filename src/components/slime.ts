@@ -32,21 +32,7 @@ export class Slime extends Squid {
 	}
 
 	update(time: Ticker) {
-		if (this.x > App.screen.width + this.width) {
-			this.x = -this.height;
-		}
-		if (this.x < -this.height) {
-			this.x = App.screen.width + this.width;
-		}
-
-		if (this.y > App.screen.height + this.height) {
-			this.y = -this.height;
-		}
-
-		if (this.y < -this.height) {
-			this.y = App.screen.height + this.height;
-		}
-
+		Squid.wrap(this);
 		this.x += this.velocity.x * time.deltaTime;
 		this.y += this.velocity.y * time.deltaTime;
 

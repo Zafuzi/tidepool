@@ -1,5 +1,6 @@
 import { Application, Assets, Texture } from "pixi.js";
 import { Slime } from "./components/slime.ts";
+import { Jellyfish } from "./components/jellyfish.ts";
 
 export const App = new Application();
 
@@ -28,6 +29,14 @@ export const AssetCache = {
 	],
 };
 
+export function NumberInRange(min: number, max: number): number {
+	return Math.random() * (max - min) + min;
+}
+
+export function CoinFlip(): boolean {
+	return NumberInRange(0, 1) > 0.5;
+}
+
 (async () => {
 	// Initialize the asset system
 	await Assets.init({});
@@ -52,5 +61,6 @@ export const AssetCache = {
 
 	for (let i = 0; i < App.screen.height / 4; i++) {
 		new Slime(i);
+		new Jellyfish(i);
 	}
 })();
