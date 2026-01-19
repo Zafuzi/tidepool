@@ -14,6 +14,7 @@ export class Slime extends Squid {
 
 		this.anchor.set(0.5);
 		this.velocity = new Point(randx > 0.5 ? randx * 10 : randx * -10, randy > 0.5 ? randy * 10 : randy * -10);
+		this.scale = new Point(randx, randx);
 	}
 
 	onReady() {
@@ -46,16 +47,5 @@ export class Slime extends Squid {
 		this.velocity.y *= this.fade_rate;
 
 		this.rotation += this.rot_vel * time.deltaTime;
-
-		if (this.scale.x < 0.5) {
-			this.fade_rate = 1.001;
-		}
-
-		if (this.scale.x > 1.2) {
-			this.fade_rate = 0.999;
-		}
-
-		this.scale.x *= this.fade_rate;
-		this.scale.y *= this.fade_rate;
 	}
 }
