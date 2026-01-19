@@ -24,7 +24,8 @@
 		"prettier": "^3.8.0",
 		"serve": "^14.2.5",
 		"typescript": "^5.9.3",
-		"vite": "^7.3.1"
+		"vite": "^7.3.1",
+		"vite-plugin-singlefile": "^2.3.0"
 	},
 	"dependencies": {
 		"gemmer": "^0.2.10",
