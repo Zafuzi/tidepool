@@ -1,19 +1,17 @@
-import { Assets, Point, Sprite, Ticker } from "pixi.js";
+import { Assets, Point, Sprite, Texture, Ticker } from "pixi.js";
 
 export class Squid extends Sprite {
 	private vel: Point = new Point(0, 0);
 
-	constructor(imagePath: string, x?: number, y?: number) {
+	constructor(texture: Texture, x?: number, y?: number) {
 		super();
 
-		Assets.load(imagePath).then((texture) => {
-			this.texture = texture;
+		this.texture = texture;
 
-			this.x = x || 0;
-			this.y = y || 0;
+		this.x = x || 0;
+		this.y = y || 0;
 
-			this.onReady();
-		});
+		this.onReady();
 	}
 
 	get velocity() {

@@ -1,5 +1,5 @@
 import { Point, Ticker } from "pixi.js";
-import { App } from "../game.ts";
+import { App, AssetCache } from "../game.ts";
 import { Squid } from "../lib/Squids.ts";
 
 export class Slime extends Squid {
@@ -9,7 +9,13 @@ export class Slime extends Squid {
 		const randx = Math.random();
 		const randy = Math.random();
 		// Load multiple assets
-		super("./slime1.png", Math.random() * App.screen.width, Math.random() * App.screen.height);
+		const idx = Math.floor(Math.random() * AssetCache.images.length);
+		const randImg = AssetCache.images[idx];
+
+		if (!randImg?.texture) {
+			throw new Error("failed to load texture");
+		}
+		super(randImg.texture, Math.random() * App.screen.width, Math.random() * App.screen.height);
 
 		this.anchor.set(0.5);
 		this.velocity = new Point(randx > 0.5 ? randx * 2 : randx * -2, randy > 0.5 ? randy * 2 : randy * -2);
