@@ -10,7 +10,7 @@ export class Slime extends Squid {
 		const randx = Math.random();
 		const randy = Math.random();
 		// Load multiple assets
-		super("slime1.png", Math.random() * App.screen.width, Math.random() * App.screen.height);
+		super("./slime1.png", Math.random() * App.screen.width, Math.random() * App.screen.height);
 
 		this.anchor.set(0.5);
 		this.velocity = new Point(randx > 0.5 ? randx * 10 : randx * -10, randy > 0.5 ? randy * 10 : randy * -10);

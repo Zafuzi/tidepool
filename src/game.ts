@@ -4,9 +4,7 @@ import { Slime } from "./components/slime.ts";
 export const App = new Application();
 (async () => {
 	// Initialize the asset system
-	await Assets.init({
-		basePath: "/",
-	});
+	await Assets.init({});
 
 	await App.init({
 		background: "#1a1a1a",
