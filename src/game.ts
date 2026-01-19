@@ -7,7 +7,7 @@ export const App = new Application();
 	await Assets.init({});
 
 	await App.init({
-		background: "#1a1a1a",
+		background: "#12232f",
 		resizeTo: window,
 		roundPixels: false,
 		antialias: true,
@@ -17,7 +17,7 @@ export const App = new Application();
 	});
 
 	document.body.appendChild(App.canvas);
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < 20; i++) {
 		new Slime();
 	}
 })();

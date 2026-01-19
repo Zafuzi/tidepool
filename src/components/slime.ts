@@ -3,8 +3,7 @@ import { App } from "../game.ts";
 import { Squid } from "../lib/Squids.ts";
 
 export class Slime extends Squid {
-	private rot_vel: number = Math.random() > 0.5 ? Math.random() * 0.1 : Math.random() * -0.1;
-	private fade_rate: number = Math.random() < 0.5 ? Math.random() * 0.999 : Math.random() * -0.999;
+	private rot_vel: number = Math.random() * 0.1;
 
 	constructor() {
 		const randx = Math.random();
@@ -42,9 +41,6 @@ export class Slime extends Squid {
 
 		this.x += this.velocity.x * time.deltaTime;
 		this.y += this.velocity.y * time.deltaTime;
-
-		this.velocity.x *= this.fade_rate;
-		this.velocity.y *= this.fade_rate;
 
 		this.rotation += this.rot_vel * time.deltaTime;
 	}
