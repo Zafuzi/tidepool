@@ -13,21 +13,34 @@ Tidepool is a simplified template that contains everything you need to make a ga
 
 ## structure
 
-- squids.full.min.js
-    - npm distributable of the squids game engine
-- index.html
-    - loads game.js
-- game.js
-    - game code
-- components/\*.js
-    - individual nodes for the game like player, enemy, etc...
+- `src/core/`
+    - Core engine files: `App.ts`, `Squids.ts`, `Input.ts`, `Math.ts`, `Core.ts`
+    - Contains the Squids.js game engine built on PixiJS
+- `src/game/`
+    - `game.ts` - Main game initialization code
+    - `components/` - Individual game components like player, enemy, etc.
+- `index.html`
+    - Entry point that loads the game via Vite
+- `vite.config.mts`
+    - Vite configuration for building and bundling
+- `package.json`
+    - Dependencies and npm scripts
 
 ## how to use
 
 - use the template button above to clone this repo into your own repo
 - clone the repo locally
-- run `npx serve`
+- install dependencies: `npm install`
+- run development server: `npm run dev`
+- build for production: `npm run build`
 - visit [squids.sleepless.com](https://squids.sleepless.com) for more information on how to use the squids engine
+
+## technology
+
+- **TypeScript** - Type-safe JavaScript
+- **Vite** - Fast build tool and dev server
+- **PixiJS** - WebGL/WebGPU rendering engine
+- **@brianchirls/game-input** - Gamepad and keyboard input handling
 
 ## distribution
 
@@ -40,8 +53,9 @@ Tidepool is set up to publish to itch using butler.
     - make sure to click `save and view page` at the bottom to make your project visible to butler
         - you can set the project to `draft` to keep others from viewing your project.
 
-## UNIX ONLY AUTOMATION
+## deployment
 
 - Edit `deploy.sh` and change username to your itch username and gameName to your games unique id from above
-- run `./deploy.sh -p` the -p flag will attempt to upload to butler
+- run `npm run deploy` which will build the project and upload to butler
+    - or manually: `npm run build` then `./deploy.sh -p`
     - optionally use `./deploy.sh -c -p` the `-c` will clean your local `dist` folder before generating the new package
