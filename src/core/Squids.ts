@@ -1,5 +1,5 @@
 import { Assets, DEG_TO_RAD, Point, Sprite, Texture, Ticker } from "pixi.js";
-import { App } from "./core";
+import { App } from "./App";
 
 export class Squids {
 	static wrap(squid: Squid) {

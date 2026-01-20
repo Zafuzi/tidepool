@@ -1,5 +1,5 @@
 import { Point, Ticker } from "pixi.js";
-import { App } from "../../core/core.ts";
+import { App } from "../../core/App.ts";
 import { InputMoveAction } from "../../core/Input.ts";
 import { cartes, clamp } from "../../core/Math.ts";
 import { Squid, Squids } from "../../core/Squids.ts";
@@ -9,6 +9,7 @@ export class Slime extends Squid {
 		super("slime", new Point(App.screen.width / 2, App.screen.height / 2));
 
 		this.anchor.set(0.5);
+		this.velocity.set(0.5, 0);
 
 		App.stage.addChild(this);
 	}

@@ -1,5 +1,5 @@
 import { HTMLText, Point, type HTMLTextStyleOptions } from "pixi.js";
-import { App } from "./core";
+import { App } from "./App";
 import { Squid } from "./Squids";
 
 export class SquidText extends Squid {
