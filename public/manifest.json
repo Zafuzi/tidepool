@@ -1,0 +1,17 @@
+{
+	"bundles": [
+		{
+			"name": "game-essential",
+			"assets": [
+				{
+					"alias": "slime",
+					"src": "slime1.png"
+				},
+				{
+					"alias": "hit",
+					"src": "plink.ogg"
+				}
+			]
+		}
+	]
+}
