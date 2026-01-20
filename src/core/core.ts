@@ -9,27 +9,25 @@ export const Assets_GameEssentials: AssetsBundle = {
 	assets: [],
 };
 
-(async () => {
-	await App.init({
-		background: "#12232f",
-		resizeTo: window,
-		roundPixels: false,
-		antialias: false,
-		bezierSmoothness: 1,
-		resolution: window.devicePixelRatio,
-		preference: "webgpu",
-		autoDensity: true,
-	});
-	document.body.appendChild(App.canvas);
+await App.init({
+	background: "#12232f",
+	resizeTo: window,
+	roundPixels: false,
+	antialias: false,
+	bezierSmoothness: 1,
+	resolution: window.devicePixelRatio,
+	preference: "webgpu",
+	autoDensity: true,
+});
+document.body.appendChild(App.canvas);
 
-	await Assets.init({ manifest: "./manifest.json" });
-	await Assets.loadBundle("game-essential").then((bundle) => {
-		Assets_GameEssentials.assets = bundle.assets;
-	});
+await Assets.init({ manifest: "./manifest.json" });
+await Assets.loadBundle("game-essential").then((bundle) => {
+	Assets_GameEssentials.assets = bundle.assets;
+});
 
-	App.ticker.add(() => {
-		InputGamepad.update();
-	});
+App.ticker.add(() => {
+	InputGamepad.update();
+});
 
-	Game();
-})();
+Game(App);
