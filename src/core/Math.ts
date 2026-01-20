@@ -23,8 +23,7 @@ export const cartes = function (az: number, v?: Point) {
 // returns a number from 0.0 thru PI * 2 that represents the angle
 // between the two, or the "heading" from source to target
 export const azimuth = function (s_pos: Point, t_pos: Point) {
-	let a = Math.atan2(t_pos.y - s_pos.y, t_pos.x - s_pos.x) + Math.PI / 2;
-	return a;
+	return Math.atan2(t_pos.y - s_pos.y, t_pos.x - s_pos.x) + Math.PI / 2;
 };
 
 export const clamp = function (num: number, min: number, max: number) {
