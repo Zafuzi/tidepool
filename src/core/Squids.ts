@@ -53,11 +53,19 @@ export class Squid extends Sprite {
 		super();
 
 		if (fileName) {
-			Assets.load(fileName)
-				.then((t: Texture) => {
-					this.texture = t;
-				})
-				.catch((e: Error) => console.error(e));
+			// Check if asset is already loaded (e.g., from a bundle)
+			const existingAsset = Assets.get(fileName);
+			if (existingAsset) {
+				// Asset is already loaded, use it directly
+				this.texture = existingAsset as Texture;
+			} else {
+				// Asset not loaded yet, load it
+				Assets.load(fileName)
+					.then((t: Texture) => {
+						this.texture = t;
+					})
+					.catch((e: Error) => console.error(e));
+			}
 		}
 
 		this.x = pos?.x || 0;
