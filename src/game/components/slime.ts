@@ -2,16 +2,27 @@ import { Point, Ticker } from "pixi.js";
 import { App } from "../../core/App.ts";
 import { InputMoveAction } from "../../core/Input.ts";
 import { cartes, clamp } from "../../core/Math.ts";
-import { Squid, Squids } from "../../core/Squids.ts";
+import { SquidGraphic, Squids, SquidSprite } from "../../core/Squids.ts";
 
-export class Slime extends Squid {
+export class Slime extends SquidSprite {
+	private front: SquidGraphic = new SquidGraphic({ position: new Point(0, 0) });
+
 	constructor() {
-		super("slime", new Point(App.screen.width / 2, App.screen.height / 2));
+		super({
+			fileName: "slime",
+			position: new Point(App.screen.width / 2, App.screen.height / 2),
+		})
 
-		this.anchor.set(0.5);
-		this.velocity.set(0.5, 0);
+		this.init("slime").then(() => {
+			this.sprite.anchor.set(0.5);
+			this.velocity.set(0, 0);
 
-		App.stage.addChild(this);
+			this.front.graphics.circle(0, 0, 10);
+			this.front.graphics.fill(0x00ff00);
+			this.front.position.set(0, -this.height / 2);
+
+			this.addChild(this.front);
+		});
 	}
 
 	update(time: Ticker) {

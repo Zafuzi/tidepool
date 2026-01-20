@@ -1,36 +1,47 @@
-import { type Application, Point } from "pixi.js";
-import { App } from "../core/App";
-import { SquidText } from "../core/Text";
+import { Point } from "pixi.js";
+import { App } from "../core/App.ts";
+import { Squid, SquidGraphic, SquidSprite, SquidText } from "../core/Squids.ts";
 import { Slime } from "./components/slime";
 
-let player: Slime | null = null;
-let velocity: SquidText | null = null;
+// This is just one way to store game objects. You don't need to use this at all
+export const GameObjects: { [key: string]: Squid | SquidSprite | SquidText | SquidGraphic | null } = {
+	player: null,
+	velocity: null,
+};
 
-function initGame(_App: Application) {
-	// Clean up existing instances on re-execution
-	if (player) {
-		App.stage.removeChild(player);
-		player.destroy();
-	}
-	if (velocity) {
-		App.stage.removeChild(velocity.element);
-		velocity.element.destroy();
-		velocity.destroy();
+export default function Game() {
+	App.stage.removeChildren();
+
+	// This is manual cleanup. Mostly for development purposes.
+	for (let gameObjectsKey in GameObjects) {
+		let gameObject = GameObjects[gameObjectsKey];
+		if (gameObject?.destroy) {
+			gameObject.destroy();
+		}
 	}
 
+	let player = GameObjects.player as SquidSprite;
+	let velocity = GameObjects.velocity as SquidText;
+
+	// Call any component you want...
 	player = new Slime();
-	velocity = new SquidText("Velocity: 0", new Point(20, 20), {
-		fontFamily: "Arial",
-		fontSize: 24,
-		fill: "#fafafa",
-		align: "left",
+
+	// Or just use the API directly...
+	velocity = new SquidText({
+		text: "Velocity: 0",
+		position: new Point(20, 20),
 	});
 
+	// Customize the text element...
+	velocity.element.style.align = "left";
+
+	// Customize the update function...
 	velocity.update = () => {
-		if (player && velocity) {
+		if (player && velocity?.element) {
 			velocity.element.text = `<strong>Velocity: ${player.velocity.x.toPrecision(2)}, ${player.velocity.y.toPrecision(2)}</strong>`;
 		}
 	};
-}
 
-export default initGame;
+	// Add the game objects to the stage...
+	App.stage.addChild(player, velocity);
+}
