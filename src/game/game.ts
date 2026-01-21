@@ -1,16 +1,17 @@
 import { Point } from "pixi.js";
-import { App } from "../core/App.ts";
 import { Squid, SquidGraphic, SquidSprite, SquidText } from "../core/Squids.ts";
 import { Slime } from "./components/slime";
+import { GameApp } from "../app.ts";
 
 // This is just one way to store game objects. You don't need to use this at all
 export const GameObjects: { [key: string]: Squid | SquidSprite | SquidText | SquidGraphic | null } = {
 	player: null,
 	velocity: null,
+	tutorial: null,
 };
 
 export default function Game() {
-	App.stage.removeChildren();
+	GameApp.stage.removeChildren();
 
 	// This is manual cleanup. Mostly for development purposes.
 	for (let gameObjectsKey in GameObjects) {
@@ -20,8 +21,9 @@ export default function Game() {
 		}
 	}
 
-	let player = GameObjects.player as SquidSprite;
-	let velocity = GameObjects.velocity as SquidText;
+	let player: SquidSprite | null = GameObjects.player as SquidSprite | null;
+	let velocity: SquidText | null = GameObjects.velocity as SquidText | null;
+	let tutorial: SquidText | null = GameObjects.tutorial as SquidText | null;
 
 	// Call any component you want...
 	player = new Slime();
@@ -31,9 +33,30 @@ export default function Game() {
 		text: "Velocity: 0",
 		position: new Point(20, 20),
 	});
+	velocity.element.anchor.set(0, 0);
+	velocity.element.style.wordWrapWidth = 300;
 
 	// Customize the text element...
 	velocity.element.style.align = "left";
+
+	// Tutorial text
+	tutorial = new SquidText({
+		position: new Point(GameApp.screen.width / 2, GameApp.screen.height - 50),
+		text: "Use Arrow Keys, WASD, or Gamepad Left Stick to move the player",
+		style: {
+			align: "center",
+			fontSize: 16,
+			fontFamily: "Arial",
+			fill: "#ffffff",
+			wordWrap: true,
+			wordWrapWidth: 300,
+		},
+	});
+	tutorial.element.anchor.set(0.5, 1);
+	// Remove tutorial text after 5 seconds
+	setTimeout(() => {
+		tutorial.element.text = "";
+	}, 5_000);
 
 	// Customize the update function...
 	velocity.update = () => {
@@ -43,5 +66,5 @@ export default function Game() {
 	};
 
 	// Add the game objects to the stage...
-	App.stage.addChild(player, velocity);
+	GameApp.stage.addChild(player, velocity, tutorial);
 }

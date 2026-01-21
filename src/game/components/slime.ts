@@ -1,8 +1,8 @@
 import { Point, Ticker } from "pixi.js";
-import { App } from "../../core/App.ts";
 import { InputMoveAction } from "../../core/Input.ts";
 import { cartes, clamp } from "../../core/Math.ts";
 import { SquidGraphic, Squids, SquidSprite } from "../../core/Squids.ts";
+import { GameApp } from "../../app.ts";
 
 export class Slime extends SquidSprite {
 	private front: SquidGraphic = new SquidGraphic({ position: new Point(0, 0) });
@@ -10,7 +10,7 @@ export class Slime extends SquidSprite {
 	constructor() {
 		super({
 			fileName: "slime",
-			position: new Point(App.screen.width / 2, App.screen.height / 2),
+			position: new Point(GameApp.screen.width / 2, GameApp.screen.height / 2),
 		})
 
 		this.init("slime").then(() => {

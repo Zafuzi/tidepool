@@ -7,26 +7,25 @@ import {
 	type HTMLTextStyleOptions,
 	Point,
 	Sprite,
-	Texture,
 	Ticker,
 } from "pixi.js";
-import { App } from "./App";
+import { GameApp } from "../app";
 
 export class Squids {
 	static wrap(squid: Squid) {
-		if (squid.x > App.screen.width + squid.width / 2) {
+		if (squid.x > GameApp.screen.width + squid.width / 2) {
 			squid.x = -squid.width / 2;
 		}
 		if (squid.x < -squid.width / 2) {
-			squid.x = App.screen.width + squid.width / 2;
+			squid.x = GameApp.screen.width + squid.width / 2;
 		}
 
-		if (squid.y > App.screen.height + squid.height / 2) {
+		if (squid.y > GameApp.screen.height + squid.height / 2) {
 			squid.y = -squid.height / 2;
 		}
 
 		if (squid.y < -squid.height / 2) {
-			squid.y = App.screen.height + squid.height / 2;
+			squid.y = GameApp.screen.height + squid.height / 2;
 		}
 	}
 
@@ -92,7 +91,7 @@ export class Squid extends Container {
 			}
 		};
 
-		App.ticker.add(this.tickerCallback);
+		GameApp.ticker.add(this.tickerCallback);
 	}
 
 	async init(...args: any[]): Promise<void> { }
@@ -101,7 +100,7 @@ export class Squid extends Container {
 
 	destroy(): void {
 		if (this.tickerCallback) {
-			App.ticker.remove(this.tickerCallback);
+			GameApp.ticker.remove(this.tickerCallback);
 			this.tickerCallback = undefined;
 		}
 
@@ -142,16 +141,22 @@ export class SquidText extends Squid {
 
 	constructor(options: SquidOptions & SquidTextOptions) {
 		super(options);
+
 		const { text, style } = options;
+
 		this.element = new HTMLText({
 			text,
 			style: style ?? {
+				wordWrap: true,
 				fontFamily: "Arial",
 				fontSize: 24,
 				fill: "#00ff00",
 				align: "left",
 			},
 		});
+
+		this.element.position.set(0, 0);
+
 		this.addChild(this.element);
 	}
 }

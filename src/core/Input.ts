@@ -21,6 +21,10 @@ const kbd_ARROW = new DPadComposite({
 	right: InputKeyboard.getControl("ArrowRight"),
 });
 
+export const InputSettings = new Action({
+	bindings: [InputKeyboard.getControl("Escape")],
+});
+
 export const InputMoveAction = new Action({
 	bindings: [leftStick, kbd_WASD, kbd_ARROW],
 });

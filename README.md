@@ -14,7 +14,7 @@ Tidepool is a simplified template that contains everything you need to make a ga
 ## structure
 
 - `src/core/`
-    - Core engine files: `App.ts`, `Squids.ts`, `Input.ts`, `Math.ts`, `Core.ts`
+    - Core engine files: `GameApp.ts`, `Squids.ts`, `Input.ts`, `Math.ts`, `Core.ts`
     - Contains the Squids.js game engine built on PixiJS
 - `src/game/`
     - `game.ts` - Main game initialization code
