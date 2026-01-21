@@ -1,6 +1,6 @@
 import { Point, Ticker } from "pixi.js";
-import { WORLD_HEIGHT, WORLD_WIDTH } from "../../engine/Constants";
 import { EntityGraphic, EntitySprite, EntityUtils } from "../../engine/Entity";
+import { WORLD_HEIGHT, WORLD_WIDTH } from "../../engine/index.ts";
 import { InputMoveAction } from "../../engine/Input";
 import { cartes, clamp } from "../../engine/Math";
 
