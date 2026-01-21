@@ -75,6 +75,8 @@ export default function Game({ viewport, hud, worldWidth, worldHeight, assets }:
 
 	// Add the game objects to the world container...
 	viewport.addChild(player);
+
+	// add the HUD elements to the HUD container
 	hud.addChild(velocity, tutorial);
 
 	// update the camera
