@@ -1,18 +1,13 @@
-import { Application, Assets, Container, Point, type AssetsBundle } from "pixi.js";
+import { Assets, Container, Point, type AssetsBundle } from "pixi.js";
 import "pixi.js/math-extras";
 import { InputGamepad } from "./core/Input";
 import { Viewport } from "pixi-viewport";
 import Game from "./game/game";
-
-// Fixed world dimensions - this is your "logical" game world size
-// All game objects use these dimensions for positioning
-export const WORLD_WIDTH = 1280;
-export const WORLD_HEIGHT = 720;
+import { GameContainer, WORLD_WIDTH, WORLD_HEIGHT } from "./core/Constants";
 
 // World container - scales to fit window while maintaining aspect ratio
 export let ViewportContainer: Viewport;
 export let HUDContainer: Container;
-export const GameContainer: Application = new Application();
 
 export const Assets_GameEssentials: AssetsBundle = {
 	name: "game-essential",

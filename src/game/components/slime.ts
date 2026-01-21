@@ -2,7 +2,7 @@ import { Point, Ticker } from "pixi.js";
 import { InputMoveAction } from "../../core/Input.ts";
 import { cartes, clamp } from "../../core/Math.ts";
 import { SquidGraphic, Squids, SquidSprite } from "../../core/Squids.ts";
-import { WORLD_WIDTH, WORLD_HEIGHT } from "../../app.ts";
+import { WORLD_WIDTH, WORLD_HEIGHT } from "../../core/Constants.ts";
 
 export class Slime extends SquidSprite {
 	private front: SquidGraphic = new SquidGraphic({ position: new Point(0, 0) });

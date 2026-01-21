@@ -17,7 +17,7 @@ export default function Game({ viewport, hud, worldWidth, worldHeight, assets }:
 	// Or just use the API directly...
 	const velocity = new SquidText({
 		text: "Velocity: 0",
-		position: new Point(100, 20),
+		position: new Point(20, 20),
 	});
 	velocity.element.anchor.set(0, 0);
 	velocity.element.style.wordWrapWidth = 300;

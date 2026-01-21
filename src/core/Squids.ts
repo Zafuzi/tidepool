@@ -9,7 +9,7 @@ import {
 	Sprite,
 	Ticker,
 } from "pixi.js";
-import { GameContainer, WORLD_WIDTH, WORLD_HEIGHT } from "../app";
+import { GameContainer, WORLD_WIDTH, WORLD_HEIGHT } from "./Constants";
 
 export class Squids {
 	static wrap(squid: Squid) {
