@@ -15,13 +15,13 @@
 		"noEmit": true,
 
 		/* Linting */
-		"strict": false,
+		"strict": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"erasableSyntaxOnly": false,
+		"erasableSyntaxOnly": true,
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true,
 		"allowUnusedLabels": true
 	},
-	"include": ["src", "src/**/*.vue"]
+	"include": ["src/**/*.ts"]
 }

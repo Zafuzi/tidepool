@@ -4,12 +4,12 @@
 			"name": "game-essential",
 			"assets": [
 				{
-					"alias": "slime",
-					"src": "slime1.png"
+					"alias": "player",
+					"src": "player.png"
 				},
 				{
-					"alias": "hit",
-					"src": "plink.ogg"
+					"alias": "bg",
+					"src": "background_tile.webp"
 				}
 			]
 		}

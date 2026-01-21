@@ -32,6 +32,7 @@
 		"vite-plugin-singlefile": "^2.3.0"
 	},
 	"dependencies": {
+		"@pixi/sprite-tiling": "^7.4.3",
 		"pixi-viewport": "^6.0.3",
 		"vue": "^3.5.27"
 	}
