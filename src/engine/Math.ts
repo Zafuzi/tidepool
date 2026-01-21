@@ -34,3 +34,6 @@ export const clampPoint = function (p: Point, min: number, max: number) {
 	p.x = clamp(p.x, min, max);
 	p.y = clamp(p.y, min, max);
 };
+
+export const magnitude = (x: number, y: number) => Math.sqrt(x * x + y * y);
+export const direction = (y: number, x: number) => Math.atan2(y, x);

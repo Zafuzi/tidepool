@@ -10,45 +10,36 @@ import {
 	Ticker,
 } from "pixi.js";
 import { App } from "./Application";
-import { WORLD_WIDTH, WORLD_HEIGHT } from "./Constants";
+import { direction, magnitude } from "./Math.ts";
 
 // Utility functions for entities
 export const EntityUtils = {
-	wrap(entity: Entity) {
-		if (entity.x > WORLD_WIDTH + entity.width / 2) {
-			entity.x = -entity.width / 2;
-		}
-		if (entity.x < -entity.width / 2) {
-			entity.x = WORLD_WIDTH + entity.width / 2;
+	newtonian(entity: Entity, ticker: Ticker, acceleration?: Point, friction?: Point) {
+		const deltaTime = ticker.deltaTime;
+
+		entity.velocity.x += acceleration?.x || entity.acceleration.x;
+		entity.velocity.y += acceleration?.y || entity.acceleration.y;
+
+		let speed = magnitude(entity.velocity.x, entity.velocity.y);
+		let angle = direction(entity.velocity.y, entity.velocity.x);
+
+		friction = friction || entity.friction;
+
+		if (speed > friction.x) {
+			speed -= friction.x;
+		} else {
+			speed = 0;
 		}
 
-		if (entity.y > WORLD_HEIGHT + entity.height / 2) {
-			entity.y = -entity.height / 2;
-		}
+		entity.velocity.x = Math.cos(angle) * speed;
+		entity.velocity.y = Math.sin(angle) * speed;
 
-		if (entity.y < -entity.height / 2) {
-			entity.y = WORLD_HEIGHT + entity.height / 2;
-		}
-	},
+		entity.rotation_velocity *= 1 - entity.rotation_friction;
 
-	newtonian(entity: Entity, deltaTime: number, friction?: number) {
-		entity.velocity = entity.velocity.multiplyScalar(friction ?? 0.98);
-		entity.rotation_velocity *= friction ?? 0.98;
+		entity.position.x += entity.velocity.x;
+		entity.position.y += entity.velocity.y;
 
-		entity.position = entity.position.add(entity.velocity.multiplyScalar(deltaTime));
 		entity.rotation += DEG_TO_RAD * entity.rotation_velocity * deltaTime;
-
-		if (Math.abs(entity.velocity.x) < 0.01) {
-			entity.velocity.x = 0;
-		}
-
-		if (Math.abs(entity.velocity.y) < 0.01) {
-			entity.velocity.y = 0;
-		}
-
-		if (Math.abs(entity.rotation_velocity) < 0.01) {
-			entity.rotation_velocity = 0;
-		}
 	},
 
 	forward(entity: Entity, worldVelocity: Point): Point {
@@ -75,7 +66,14 @@ export type EntityOptions = {
 export class Entity extends Container {
 	public alive: boolean = true;
 	public velocity: Point = new Point(0, 0);
+	public acceleration: Point = new Point(0, 0);
+	public friction: Point = new Point(0, 0);
+
 	public rotation_velocity: number = 0;
+	public rotation_friction: number = 0;
+
+	public init: (...args: any[]) => void;
+	public update: (time: Ticker) => void;
 
 	private tickerCallback?: (time: Ticker) => void;
 
@@ -88,17 +86,13 @@ export class Entity extends Container {
 		this.alive = alive ?? true;
 
 		this.tickerCallback = (time: Ticker) => {
-			if (this.alive) {
+			if (this.alive && typeof this.update === "function") {
 				this.update(time);
 			}
 		};
 
 		App.ticker.add(this.tickerCallback);
 	}
-
-	async init(...args: any[]): Promise<void> {}
-
-	update(_time: Ticker) {}
 
 	destroy(): void {
 		if (this.tickerCallback) {
@@ -129,11 +123,10 @@ export class EntitySprite extends Entity {
 		this.init(fileName);
 	}
 
-	async init(fileName: string) {
-		const t = await Assets.load(fileName);
-		this.sprite.texture = t;
+	init = async (fileName: string) => {
+		this.sprite.texture = await Assets.load(fileName);
 		this.addChild(this.sprite);
-	}
+	};
 }
 
 export type EntityTextOptions = {

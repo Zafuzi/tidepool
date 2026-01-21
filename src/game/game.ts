@@ -1,10 +1,17 @@
-import { Container, DEG_TO_RAD, Point, Ticker, type AssetsBundle } from "pixi.js";
-import { EntityGraphic, EntityText } from "../engine/Entity";
-import { Slime } from "./components/slime";
-import { NumberInRange } from "../engine/Math";
 import type { Viewport } from "pixi-viewport";
+import { type AssetsBundle, Container, Point } from "pixi.js";
+import { EntityText } from "../engine/Entity";
+import { App } from "../engine/index.ts";
+import { spawn } from "../engine/Spawner.ts";
+import { Slime } from "./components/slime";
 
-export default function Game({ viewport, hud, worldWidth, worldHeight, assets }: {
+export default function Game({
+	viewport,
+	hud,
+	worldWidth,
+	worldHeight,
+	assets,
+}: {
 	viewport: Viewport;
 	hud: Container;
 	worldWidth: number;
@@ -17,9 +24,9 @@ export default function Game({ viewport, hud, worldWidth, worldHeight, assets }:
 	// Or just use the API directly...
 	const velocity = new EntityText({
 		text: "Velocity: 0",
-		position: new Point(20, 20),
+		position: new Point(20, App.screen.height - 20),
 	});
-	velocity.element.anchor.set(0, 0);
+	velocity.element.anchor.set(0, 1);
 	velocity.element.style.wordWrapWidth = 300;
 
 	// Customize the text element...
@@ -53,25 +60,7 @@ export default function Game({ viewport, hud, worldWidth, worldHeight, assets }:
 		}
 	};
 
-	// generate some random shapes
-	for (let i = 0; i < 1_000; i++) {
-		const shape = new EntityGraphic({
-			position: new Point(NumberInRange(-worldWidth * 10, worldHeight * 10), NumberInRange(-worldHeight * 10, worldHeight * 10)),
-		});
-		shape.graphics.circle(0, 0, 10);
-		// random color
-		shape.graphics.fill(NumberInRange(0x000000, 0xffffff));
-		// random alpha
-		shape.graphics.alpha = NumberInRange(0.1, 1);
-		// random scale
-		shape.graphics.scale.set(NumberInRange(0.1, 2), NumberInRange(0.1, 2));
-		// random rotation
-		shape.rotation = NumberInRange(0, 360);
-		viewport.addChild(shape);
-		shape.update = (time: Ticker) => {
-			shape.rotation += DEG_TO_RAD * NumberInRange(0.01, 0.8) * time.deltaTime;
-		};
-	}
+	spawn(viewport, worldHeight, worldWidth);
 
 	// Add the game objects to the world container...
 	viewport.addChild(player);

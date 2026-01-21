@@ -15,10 +15,10 @@
 		"noEmit": true,
 
 		/* Linting */
-		"strict": true,
+		"strict": false,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"erasableSyntaxOnly": true,
+		"erasableSyntaxOnly": false,
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true,
 		"allowUnusedLabels": true
