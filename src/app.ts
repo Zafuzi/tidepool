@@ -1,9 +1,10 @@
 import { Assets, Container, Point, type AssetsBundle } from "pixi.js";
 import "pixi.js/math-extras";
-import { InputGamepad } from "./core/Input";
 import { Viewport } from "pixi-viewport";
+import { InputGamepad } from "./engine/Input";
+import { initApplication, App } from "./engine/Application";
+import { WORLD_WIDTH, WORLD_HEIGHT } from "./engine/Constants";
 import Game from "./game/game";
-import { GameContainer, WORLD_WIDTH, WORLD_HEIGHT } from "./core/Constants";
 
 // World container - scales to fit window while maintaining aspect ratio
 export let ViewportContainer: Viewport;
@@ -15,7 +16,7 @@ export const Assets_GameEssentials: AssetsBundle = {
 };
 
 (async () => {
-	await GameContainer.init({
+	await initApplication({
 		background: "#12232f",
 		roundPixels: true,
 		antialias: true,
@@ -27,14 +28,14 @@ export const Assets_GameEssentials: AssetsBundle = {
 		height: WORLD_HEIGHT,
 	});
 
-	document.body.appendChild(GameContainer.canvas);
+	document.body.appendChild(App.canvas);
 
 	ViewportContainer = new Viewport({
 		screenWidth: WORLD_WIDTH,
 		screenHeight: WORLD_HEIGHT,
 		worldWidth: WORLD_WIDTH,
 		worldHeight: WORLD_HEIGHT,
-		events: GameContainer.renderer.events, // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
+		events: App.renderer.events, // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
 	});
 
 	ViewportContainer.wheel({
@@ -43,19 +44,23 @@ export const Assets_GameEssentials: AssetsBundle = {
 		reverse: false,
 		center: new Point(WORLD_WIDTH / 2, WORLD_HEIGHT / 2),
 		lineHeight: 0.1,
-		axis: 'all',
+		axis: "all",
 		trackpadPinch: true,
 		wheelZoom: true,
-	}).pinch().decelerate().clampZoom({
-		minScale: 0.35,
-		maxScale: 1,
-	}).setZoom(0.5)
+	})
+		.pinch()
+		.decelerate()
+		.clampZoom({
+			minScale: 0.35,
+			maxScale: 1,
+		})
+		.setZoom(0.5);
 
-	GameContainer.stage.addChild(ViewportContainer);
+	App.stage.addChild(ViewportContainer);
 
 	HUDContainer = new Container();
 	HUDContainer.position.set(0, 0);
-	GameContainer.stage.addChild(HUDContainer);
+	App.stage.addChild(HUDContainer);
 
 	// Load your assets
 	await Assets.init({ manifest: "./manifest.json" });
@@ -65,11 +70,11 @@ export const Assets_GameEssentials: AssetsBundle = {
 
 	// Poll for Input
 	// Note: Keyboard is event-based and doesn't need update(), only Gamepad needs polling
-	GameContainer.ticker.add(() => {
+	App.ticker.add(() => {
 		InputGamepad.update();
 	});
 
-	// Initiliaze your game
+	// Initialize your game
 	ViewportContainer.removeChildren();
 	Game({
 		viewport: ViewportContainer,

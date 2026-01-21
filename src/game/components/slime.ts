@@ -1,11 +1,11 @@
 import { Point, Ticker } from "pixi.js";
-import { InputMoveAction } from "../../core/Input.ts";
-import { cartes, clamp } from "../../core/Math.ts";
-import { SquidGraphic, Squids, SquidSprite } from "../../core/Squids.ts";
-import { WORLD_WIDTH, WORLD_HEIGHT } from "../../core/Constants.ts";
+import { InputMoveAction } from "../../engine/Input";
+import { cartes, clamp } from "../../engine/Math";
+import { EntityGraphic, EntityUtils, EntitySprite } from "../../engine/Entity";
+import { WORLD_WIDTH, WORLD_HEIGHT } from "../../engine/Constants";
 
-export class Slime extends SquidSprite {
-	private front: SquidGraphic = new SquidGraphic({ position: new Point(0, 0) });
+export class Slime extends EntitySprite {
+	private front: EntityGraphic = new EntityGraphic({ position: new Point(0, 0) });
 
 	constructor() {
 		super({
@@ -32,6 +32,6 @@ export class Slime extends SquidSprite {
 		this.velocity = this.velocity.add(pos.multiplyScalar(-thrust * 0.1));
 		this.rotation_velocity = moveX * 3;
 
-		Squids.newtonian(this, time.deltaTime, 0.999);
+		EntityUtils.newtonian(this, time.deltaTime, 0.999);
 	}
 }

@@ -1,7 +1,7 @@
 import { Container, DEG_TO_RAD, Point, Ticker, type AssetsBundle } from "pixi.js";
-import { SquidGraphic, SquidText } from "../core/Squids.ts";
+import { EntityGraphic, EntityText } from "../engine/Entity";
 import { Slime } from "./components/slime";
-import { NumberInRange } from "../core/Math.ts";
+import { NumberInRange } from "../engine/Math";
 import type { Viewport } from "pixi-viewport";
 
 export default function Game({ viewport, hud, worldWidth, worldHeight, assets }: {
@@ -15,7 +15,7 @@ export default function Game({ viewport, hud, worldWidth, worldHeight, assets }:
 	const player = new Slime();
 
 	// Or just use the API directly...
-	const velocity = new SquidText({
+	const velocity = new EntityText({
 		text: "Velocity: 0",
 		position: new Point(20, 20),
 	});
@@ -26,7 +26,7 @@ export default function Game({ viewport, hud, worldWidth, worldHeight, assets }:
 	velocity.element.style.align = "left";
 
 	// Tutorial text
-	const tutorial = new SquidText({
+	const tutorial = new EntityText({
 		position: new Point(worldWidth / 2, worldHeight - 50),
 		text: "Use Arrow Keys, WASD, or Gamepad Left Stick to move the player",
 		style: {
@@ -53,9 +53,9 @@ export default function Game({ viewport, hud, worldWidth, worldHeight, assets }:
 		}
 	};
 
-	// genrate some random shapes
+	// generate some random shapes
 	for (let i = 0; i < 1_000; i++) {
-		const shape = new SquidGraphic({
+		const shape = new EntityGraphic({
 			position: new Point(NumberInRange(-worldWidth * 10, worldHeight * 10), NumberInRange(-worldHeight * 10, worldHeight * 10)),
 		});
 		shape.graphics.circle(0, 0, 10);
