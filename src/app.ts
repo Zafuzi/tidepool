@@ -1,25 +1,26 @@
-import { Application, Assets, Container, type AssetsBundle } from "pixi.js";
+import { Application, Assets, Container, Point, type AssetsBundle } from "pixi.js";
 import "pixi.js/math-extras";
-import Game from "./game/game";
 import { InputGamepad } from "./core/Input";
+import { Viewport } from "pixi-viewport";
+import Game from "./game/game";
 
-export const GameApp = new Application();
+// Fixed world dimensions - this is your "logical" game world size
+// All game objects use these dimensions for positioning
+export const WORLD_WIDTH = 1280;
+export const WORLD_HEIGHT = 720;
+
+// World container - scales to fit window while maintaining aspect ratio
+export let ViewportContainer: Viewport;
+export let HUDContainer: Container;
+export const GameContainer: Application = new Application();
 
 export const Assets_GameEssentials: AssetsBundle = {
 	name: "game-essential",
 	assets: [],
 };
 
-// Fixed world dimensions - this is your "logical" game world size
-// All game objects use these dimensions for positioning
-export const WORLD_WIDTH = window.innerWidth;
-export const WORLD_HEIGHT = window.innerHeight;
-
-// World container - scales to fit window while maintaining aspect ratio
-export const WorldContainer = new Container();
-
 (async () => {
-	await GameApp.init({
+	await GameContainer.init({
 		background: "#12232f",
 		roundPixels: true,
 		antialias: true,
@@ -31,32 +32,35 @@ export const WorldContainer = new Container();
 		height: WORLD_HEIGHT,
 	});
 
-	// Set up world container
-	WorldContainer.width = WORLD_WIDTH;
-	WorldContainer.height = WORLD_HEIGHT;
+	document.body.appendChild(GameContainer.canvas);
 
-	GameApp.stage.addChild(WorldContainer);
+	ViewportContainer = new Viewport({
+		screenWidth: WORLD_WIDTH,
+		screenHeight: WORLD_HEIGHT,
+		worldWidth: WORLD_WIDTH,
+		worldHeight: WORLD_HEIGHT,
+		events: GameContainer.renderer.events, // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
+	});
 
-	// Function to scale world container to fit current window size
-	const updateWorldScale = () => {
-		const width = GameApp.screen.width;
-		const height = GameApp.screen.height;
+	ViewportContainer.wheel({
+		smooth: 100,
+		interrupt: true,
+		reverse: false,
+		center: new Point(WORLD_WIDTH / 2, WORLD_HEIGHT / 2),
+		lineHeight: 0.1,
+		axis: 'all',
+		trackpadPinch: true,
+		wheelZoom: true,
+	}).pinch().decelerate().clampZoom({
+		minScale: 0.35,
+		maxScale: 1,
+	}).setZoom(0.5)
 
-		const scaleX = width / WORLD_WIDTH;
-		const scaleY = height / WORLD_HEIGHT;
-		const scale = Math.min(scaleX, scaleY); // Maintain aspect ratio
+	GameContainer.stage.addChild(ViewportContainer);
 
-		WorldContainer.scale.set(scale);
-		WorldContainer.x = (width - WORLD_WIDTH * scale) / 2;
-		WorldContainer.y = (height - WORLD_HEIGHT * scale) / 2;
-	};
-
-	// Update scale initially and on resize
-	updateWorldScale();
-	window.addEventListener("resize", updateWorldScale);
-
-	const canvas = GameApp.canvas;
-	document.body.appendChild(canvas);
+	HUDContainer = new Container();
+	HUDContainer.position.set(0, 0);
+	GameContainer.stage.addChild(HUDContainer);
 
 	// Load your assets
 	await Assets.init({ manifest: "./manifest.json" });
@@ -66,10 +70,17 @@ export const WorldContainer = new Container();
 
 	// Poll for Input
 	// Note: Keyboard is event-based and doesn't need update(), only Gamepad needs polling
-	GameApp.ticker.add(() => {
+	GameContainer.ticker.add(() => {
 		InputGamepad.update();
 	});
 
 	// Initiliaze your game
-	Game();
+	ViewportContainer.removeChildren();
+	Game({
+		viewport: ViewportContainer,
+		hud: HUDContainer,
+		worldWidth: WORLD_WIDTH,
+		worldHeight: WORLD_HEIGHT,
+		assets: Assets_GameEssentials,
+	});
 })();

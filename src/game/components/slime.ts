@@ -26,8 +26,6 @@ export class Slime extends SquidSprite {
 	}
 
 	update(time: Ticker) {
-		Squids.wrap(this);
-
 		const [moveX, moveY] = InputMoveAction.value;
 		const pos = cartes(this.rotation);
 		const thrust = clamp(moveY, 0, 0.5);

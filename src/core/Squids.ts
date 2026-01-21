@@ -9,7 +9,7 @@ import {
 	Sprite,
 	Ticker,
 } from "pixi.js";
-import { GameApp, WORLD_WIDTH, WORLD_HEIGHT } from "../app";
+import { GameContainer, WORLD_WIDTH, WORLD_HEIGHT } from "../app";
 
 export class Squids {
 	static wrap(squid: Squid) {
@@ -91,7 +91,7 @@ export class Squid extends Container {
 			}
 		};
 
-		GameApp.ticker.add(this.tickerCallback);
+		GameContainer.ticker.add(this.tickerCallback);
 	}
 
 	async init(...args: any[]): Promise<void> { }
@@ -100,7 +100,7 @@ export class Squid extends Container {
 
 	destroy(): void {
 		if (this.tickerCallback) {
-			GameApp.ticker.remove(this.tickerCallback);
+			GameContainer.ticker.remove(this.tickerCallback);
 			this.tickerCallback = undefined;
 		}
 
