@@ -9,23 +9,23 @@ import {
 	Sprite,
 	Ticker,
 } from "pixi.js";
-import { GameApp } from "../app";
+import { GameApp, WORLD_WIDTH, WORLD_HEIGHT } from "../app";
 
 export class Squids {
 	static wrap(squid: Squid) {
-		if (squid.x > GameApp.screen.width + squid.width / 2) {
+		if (squid.x > WORLD_WIDTH + squid.width / 2) {
 			squid.x = -squid.width / 2;
 		}
 		if (squid.x < -squid.width / 2) {
-			squid.x = GameApp.screen.width + squid.width / 2;
+			squid.x = WORLD_WIDTH + squid.width / 2;
 		}
 
-		if (squid.y > GameApp.screen.height + squid.height / 2) {
+		if (squid.y > WORLD_HEIGHT + squid.height / 2) {
 			squid.y = -squid.height / 2;
 		}
 
 		if (squid.y < -squid.height / 2) {
-			squid.y = GameApp.screen.height + squid.height / 2;
+			squid.y = WORLD_HEIGHT + squid.height / 2;
 		}
 	}
 

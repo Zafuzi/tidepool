@@ -1,7 +1,7 @@
 import { Point } from "pixi.js";
 import { Squid, SquidGraphic, SquidSprite, SquidText } from "../core/Squids.ts";
 import { Slime } from "./components/slime";
-import { GameApp } from "../app.ts";
+import { WorldContainer, WORLD_WIDTH, WORLD_HEIGHT } from "../app.ts";
 
 // This is just one way to store game objects. You don't need to use this at all
 export const GameObjects: { [key: string]: Squid | SquidSprite | SquidText | SquidGraphic | null } = {
@@ -11,7 +11,7 @@ export const GameObjects: { [key: string]: Squid | SquidSprite | SquidText | Squ
 };
 
 export default function Game() {
-	GameApp.stage.removeChildren();
+	WorldContainer.removeChildren();
 
 	// This is manual cleanup. Mostly for development purposes.
 	for (let gameObjectsKey in GameObjects) {
@@ -41,7 +41,7 @@ export default function Game() {
 
 	// Tutorial text
 	tutorial = new SquidText({
-		position: new Point(GameApp.screen.width / 2, GameApp.screen.height - 50),
+		position: new Point(WORLD_WIDTH / 2, WORLD_HEIGHT - 50),
 		text: "Use Arrow Keys, WASD, or Gamepad Left Stick to move the player",
 		style: {
 			align: "center",
@@ -65,6 +65,6 @@ export default function Game() {
 		}
 	};
 
-	// Add the game objects to the stage...
-	GameApp.stage.addChild(player, velocity, tutorial);
+	// Add the game objects to the world container...
+	WorldContainer.addChild(player, velocity, tutorial);
 }

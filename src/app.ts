@@ -1,32 +1,24 @@
-import { createApp } from "vue";
-import Settings from "./components/Settings.vue";
-import { Application, Assets, type AssetsBundle } from "pixi.js";
+import { Application, Assets, Container, type AssetsBundle } from "pixi.js";
 import "pixi.js/math-extras";
 import Game from "./game/game";
 import { InputGamepad } from "./core/Input";
 
 export const GameApp = new Application();
-export const UIApp = createApp(Settings);
-UIApp.mount("#app");
-
-export const resolutionMap: Record<string, { width: number; height: number }> = {
-	"480p": { width: 854, height: 480 },
-	"720p": { width: 1280, height: 720 },
-	"960p": { width: 1280, height: 960 },
-	"1080p": { width: 1920, height: 1080 },
-	"1440p": { width: 2560, height: 1440 },
-	"2160p": { width: 3840, height: 2160 },
-};
 
 export const Assets_GameEssentials: AssetsBundle = {
 	name: "game-essential",
 	assets: [],
 };
 
-(async () => {
-	let targetWidth = 1280;
-	let targetHeight = 720;
+// Fixed world dimensions - this is your "logical" game world size
+// All game objects use these dimensions for positioning
+export const WORLD_WIDTH = window.innerWidth;
+export const WORLD_HEIGHT = window.innerHeight;
 
+// World container - scales to fit window while maintaining aspect ratio
+export const WorldContainer = new Container();
+
+(async () => {
 	await GameApp.init({
 		background: "#12232f",
 		roundPixels: true,
@@ -34,37 +26,37 @@ export const Assets_GameEssentials: AssetsBundle = {
 		resolution: window.devicePixelRatio,
 		preference: "webgpu",
 		autoDensity: true,
-		width: targetWidth,
-		height: targetHeight,
+		resizeTo: undefined, // Automatically resize to fit window
+		width: WORLD_WIDTH,
+		height: WORLD_HEIGHT,
 	});
 
-	// maintain aspect ratio
+	// Set up world container
+	WorldContainer.width = WORLD_WIDTH;
+	WorldContainer.height = WORLD_HEIGHT;
+
+	GameApp.stage.addChild(WorldContainer);
+
+	// Function to scale world container to fit current window size
+	const updateWorldScale = () => {
+		const width = GameApp.screen.width;
+		const height = GameApp.screen.height;
+
+		const scaleX = width / WORLD_WIDTH;
+		const scaleY = height / WORLD_HEIGHT;
+		const scale = Math.min(scaleX, scaleY); // Maintain aspect ratio
+
+		WorldContainer.scale.set(scale);
+		WorldContainer.x = (width - WORLD_WIDTH * scale) / 2;
+		WorldContainer.y = (height - WORLD_HEIGHT * scale) / 2;
+	};
+
+	// Update scale initially and on resize
+	updateWorldScale();
+	window.addEventListener("resize", updateWorldScale);
+
 	const canvas = GameApp.canvas;
-	canvas.style.aspectRatio = `${targetWidth} / ${targetHeight}`;
-	canvas.style.width = `${targetWidth}px`;
-	canvas.style.height = `${targetHeight}px`;
-
 	document.body.appendChild(canvas);
-
-	// Listen for resolution changes
-	window.addEventListener(
-		"resolution-change",
-		((event: CustomEvent<{ width: number; height: number }>) => {
-			const { width, height } = event.detail;
-
-			// Update PixiJS app resolution
-			targetWidth = width;
-			targetHeight = height;
-
-			// Update canvas size
-			canvas.style.aspectRatio = `${targetWidth} / ${targetHeight}`;
-			canvas.style.width = `${targetWidth}px`;
-			canvas.style.height = `${targetHeight}px`;
-
-			// Resize the renderer
-			GameApp.renderer.resize(targetWidth, targetHeight);
-		}) as EventListener,
-	);
 
 	// Load your assets
 	await Assets.init({ manifest: "./manifest.json" });
