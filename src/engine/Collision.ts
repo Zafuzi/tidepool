@@ -1,4 +1,4 @@
-import { Point, type PointData } from "pixi.js";
+import { Point, type PointData, type ObservablePoint } from "pixi.js";
 
 // Collision body type: null (no body), number (circular radius), or Point (rectangular size)
 export type CollisionBody = null | number | Point;
@@ -6,15 +6,20 @@ export type CollisionBody = null | number | Point;
 // Interface for entities that can participate in collision detection
 export interface CollidableEntity {
 	body: CollisionBody;
-	position: Point;
-	scale: number;
+	position: Point | ObservablePoint;
+	scale: number | ObservablePoint;
+}
+
+// Helper to get scale value (handles both number and ObservablePoint)
+function getScale( scale: number | ObservablePoint ): number {
+	return typeof scale === "number" ? scale : scale.x;
 }
 
 // Test for circle to circle collision
 // Assumes both hit bodies are set and of the correct type
 function collide_rad_rad( entity1: CollidableEntity, entity2: CollidableEntity ): boolean {
-	const scale1 = entity1.scale;
-	const scale2 = entity2.scale;
+	const scale1 = getScale( entity1.scale );
+	const scale2 = getScale( entity2.scale );
 	const combinedRadius = ( ( entity1.body as number ) * scale1 ) + ( ( entity2.body as number ) * scale2 );
 	const collisionRadiusSquared = combinedRadius * combinedRadius;
 	const deltaX = Math.abs( entity2.position.x - entity1.position.x );
@@ -29,9 +34,11 @@ function collide_rad_rad( entity1: CollidableEntity, entity2: CollidableEntity )
 function collide_rect_rad( entity1: CollidableEntity, entity2: CollidableEntity ): boolean {
 	const scale1 = entity1.scale;
 	const rectBody = entity1.body as Point;
-	const halfWidth = ( rectBody.x * scale1 ) * 0.5;
-	const halfHeight = ( rectBody.y * scale1 ) * 0.5;
-	const circleRadius = ( entity2.body as number ) * entity2.scale;
+	const scale1X = typeof scale1 === "number" ? scale1 : scale1.x;
+	const scale1Y = typeof scale1 === "number" ? scale1 : scale1.y;
+	const halfWidth = ( rectBody.x * scale1X ) * 0.5;
+	const halfHeight = ( rectBody.y * scale1Y ) * 0.5;
+	const circleRadius = ( entity2.body as number ) * getScale( entity2.scale );
 	const rectX = entity1.position.x;
 	const rectY = entity1.position.y;
 	const circleX = entity2.position.x;
@@ -55,8 +62,14 @@ function collide_rect_rect( entity1: CollidableEntity, entity2: CollidableEntity
 	const position2 = entity2.position;
 	const rectBody1 = entity1.body as Point;
 	const rectBody2 = entity2.body as Point;
-	const scaledSize1 = new Point( rectBody1.x * entity1.scale, rectBody1.y * entity1.scale );
-	const scaledSize2 = new Point( rectBody2.x * entity2.scale, rectBody2.y * entity2.scale );
+	const scale1 = entity1.scale;
+	const scale2 = entity2.scale;
+	const scale1X = typeof scale1 === "number" ? scale1 : scale1.x;
+	const scale1Y = typeof scale1 === "number" ? scale1 : scale1.y;
+	const scale2X = typeof scale2 === "number" ? scale2 : scale2.x;
+	const scale2Y = typeof scale2 === "number" ? scale2 : scale2.y;
+	const scaledSize1 = new Point( rectBody1.x * scale1X, rectBody1.y * scale1Y );
+	const scaledSize2 = new Point( rectBody2.x * scale2X, rectBody2.y * scale2Y );
 
 	let deltaX = Math.abs( position1.x - position2.x );
 	let combinedHalfWidth = ( scaledSize1.x + scaledSize2.x ) * 0.5;

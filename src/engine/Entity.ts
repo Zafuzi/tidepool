@@ -6,16 +6,19 @@ import {
 	HTMLText,
 	type HTMLTextStyleOptions,
 	Point,
+	type PointData,
 	Sprite,
 	Ticker,
 	TilingSprite,
 } from "pixi.js";
 import { App } from "./Engine.ts";
 import { Azimuth, Cartesian, Direction, Magnitude } from "./Math.ts";
+import { type CollisionBody, collideEntities, collidePointEntity } from "./Collision.ts";
 
 export type EntityOptions = {
 	position?: Point;
 	alive?: boolean;
+	body?: CollisionBody;
 };
 
 export class Entity extends Container {
@@ -27,17 +30,20 @@ export class Entity extends Container {
 	public rotation_velocity: number = 0;
 	public rotation_friction: number = 0;
 
+	public body: CollisionBody = null;
+
 	public update: null | ((...args: any[]) => void) = null;
 
 	private tickerCallback?: (time: Ticker) => void;
 
 	constructor(options: EntityOptions = {}) {
 		super();
-		const { position, alive } = options;
+		const { position, alive, body } = options;
 
 		this.x = position?.x || 0;
 		this.y = position?.y || 0;
 		this.alive = alive ?? true;
+		this.body = body ?? null;
 		this.interactiveChildren = false;
 
 		this.tickerCallback = (time: Ticker) => {
@@ -118,6 +124,16 @@ export class Entity extends Container {
 	thrustForward( v: number ) {
 		const pos = Cartesian(this.rotation);
 		this.velocity = pos.multiplyScalar( -v );
+	}
+
+	// Check if this entity collides with another entity
+	collidesWith(other: Entity): boolean {
+		return collideEntities(this, other);
+	}
+
+	// Check if a point is within this entity's collision body
+	containsPoint(point: PointData): boolean {
+		return collidePointEntity(point, this);
 	}
 }
 
