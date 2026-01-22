@@ -55,7 +55,7 @@ export let ViewportContainer: Viewport;
 
 	App.elapsed = 0;
 	App.ticker.add((ticker: Ticker) => {
-		App.elapsed! += ticker.elapsedMS
+		App.elapsed! += Math.floor(ticker.elapsedMS)
 	})
 
 	await Game(ViewportContainer);

@@ -45,7 +45,10 @@ export class Player extends EntitySprite {
 
 	update = (ticker: Ticker) => {
 		const [moveX, moveY] = InputMoveAction.value;
-		console.log(App.elapsed)
+		if (App.elapsed && App.elapsed % 10 === 0) {
+
+			console.log("Elapsed: ", App.elapsed)
+		}
 
 		const pos = Cartesian(this.rotation);
 		const thrust = Clamp(moveY, 0, 0.1);
