@@ -36,7 +36,7 @@ export class Player extends EntitySprite {
 
 		this.motion_sound = Sound.from(Assets.get("movement"));
 		this.motion_sound.addSprites("rotate", { start: 0, end: 1 });
-		this.motion_sound.addSprites("thrust", { start: 3, end: 4 });
+		this.motion_sound.addSprites("thrust", { start: 3, end: 5 });
 		this.motion_sound.volume = 1;
 		this.motion_sound.autoPlayStart();
 
