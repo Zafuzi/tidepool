@@ -6,7 +6,7 @@ import { Application } from "pixi.js";
 
 export const WORLD_WIDTH = window.innerWidth;
 export const WORLD_HEIGHT = window.innerHeight;
-export const App: Application = new Application();
+export const App: Application & { elapsed?: number } = new Application();
 
 await initDevtools({
     app: App,
