@@ -84,8 +84,8 @@ export class Entity extends Container {
 
 		this.rotation_velocity *= 1 - this.rotation_friction;
 
-		this.position.x += this.velocity.x;
-		this.position.y += this.velocity.y;
+		this.position.x += this.velocity.x * deltaTime;
+		this.position.y += this.velocity.y * deltaTime;
 
 		this.rotation += DEG_TO_RAD * this.rotation_velocity * deltaTime;
 	}
