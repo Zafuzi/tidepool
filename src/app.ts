@@ -20,7 +20,7 @@ export let ViewportContainer: Viewport;
 		height: WORLD_HEIGHT,
 		clearBeforeRender: false,
 		sharedTicker: true,
-		powerPreference: "low-power",
+		powerPreference: "high-performance",
 		canvas: document.querySelector("#game_canvas") as HTMLCanvasElement,
 	});
 
