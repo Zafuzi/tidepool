@@ -29,9 +29,7 @@ export class Squid extends EntitySprite {
     update = (ticker: Ticker) => {
 
         if (ZRoll(50)) {
-            // thrust in the rotation direction
-            const pos = Cartesian(this.rotation);
-            this.velocity = pos.multiplyScalar(-3.0);
+            this.thrustForward(3.0);
         }
 
         this.faceEntity(this.player);
