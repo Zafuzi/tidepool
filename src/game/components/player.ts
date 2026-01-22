@@ -1,5 +1,6 @@
 import { Assets, Point, Ticker } from "pixi.js";
 import {
+	App,
 	Cartesian,
 	Clamp,
 	EntityGraphic,
@@ -44,6 +45,7 @@ export class Player extends EntitySprite {
 
 	update = (ticker: Ticker) => {
 		const [moveX, moveY] = InputMoveAction.value;
+		console.log(App.elapsed)
 
 		const pos = Cartesian(this.rotation);
 		const thrust = Clamp(moveY, 0, 0.1);

@@ -1,5 +1,5 @@
 import { Viewport } from "pixi-viewport";
-import { Point } from "pixi.js";
+import { Point, Ticker } from "pixi.js";
 import "pixi.js/math-extras";
 import { App, WORLD_HEIGHT, WORLD_WIDTH } from "./engine/Engine.ts";
 import Game from "./game/game.ts";
@@ -52,6 +52,11 @@ export let ViewportContainer: Viewport;
 
 	// Initialize your game
 	App.stage.addChild(ViewportContainer);
+
+	App.elapsed = 0;
+	App.ticker.add((ticker: Ticker) => {
+		App.elapsed! += ticker.elapsedMS
+	})
 
 	await Game(ViewportContainer);
 
