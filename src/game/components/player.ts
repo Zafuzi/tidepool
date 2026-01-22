@@ -11,6 +11,7 @@ import {
 
 export class Player extends EntitySprite {
 	private front: EntityGraphic = new EntityGraphic({ position: new Point(0, 0) });
+	private hud_velocity: HTMLElement = (globalThis as any).player_stats_velocity;
 
 	constructor() {
 		super({
@@ -45,5 +46,7 @@ export class Player extends EntitySprite {
 		this.rotation_velocity += rotational_thrust;
 
 		this.newtonian(ticker);
+
+		this.hud_velocity.innerHTML = `${this.velocity.x.toFixed(2)}, ${this.velocity.y.toFixed(2)}`;
 	};
 }

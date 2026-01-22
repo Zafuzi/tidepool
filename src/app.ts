@@ -1,33 +1,32 @@
 import { Viewport } from "pixi-viewport";
-import { Container, Point } from "pixi.js";
+import { Point } from "pixi.js";
 import "pixi.js/math-extras";
-import { App, initApplication, WORLD_HEIGHT, WORLD_WIDTH } from "./engine/Engine.ts";
+import { App, WORLD_HEIGHT, WORLD_WIDTH } from "./engine/Engine.ts";
 import Game from "./game/game.ts";
 
 // World container - scales to fit window while maintaining aspect ratio
 export let ViewportContainer: Viewport;
-export let HUDContainer: Container;
 
 (async () => {
-	await initApplication({
+	await App.init({
 		background: "#000",
 		roundPixels: true,
 		antialias: false,
-		useBackBuffer: true,
+		useBackBuffer: false,
 		resolution: window.devicePixelRatio,
-		preference: "webgpu",
 		autoDensity: true,
-		resizeTo: undefined, // Automatically resize to fit window
+		resizeTo: window, // Automatically resize to fit window
 		width: WORLD_WIDTH,
 		height: WORLD_HEIGHT,
 		clearBeforeRender: false,
+		sharedTicker: true,
+		powerPreference: "low-power",
+		canvas: document.querySelector("#game_canvas") as HTMLCanvasElement,
 	});
 
-	document.body.appendChild(App.canvas);
-
 	ViewportContainer = new Viewport({
-		screenWidth: WORLD_WIDTH,
-		screenHeight: WORLD_HEIGHT,
+		screenWidth: window.innerWidth,
+		screenHeight: window.innerHeight,
 		worldWidth: WORLD_WIDTH,
 		worldHeight: WORLD_HEIGHT,
 		events: App.renderer.events, // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
@@ -51,16 +50,23 @@ export let HUDContainer: Container;
 		.pinch()
 		.decelerate();
 
-	HUDContainer = new Container();
-
 	// Initialize your game
 	App.stage.addChild(ViewportContainer);
-	App.stage.addChild(HUDContainer);
 
-	await Game({
-		viewport: ViewportContainer,
-		hud: HUDContainer,
-		worldWidth: WORLD_WIDTH,
-		worldHeight: WORLD_HEIGHT,
+	await Game(ViewportContainer);
+
+	let resizeDebounce: number;
+	window.addEventListener("resize", () => {
+		if (resizeDebounce) {
+			clearTimeout(resizeDebounce);
+		}
+
+		resizeDebounce = setTimeout(() => {
+			App.renderer.resize(window.innerWidth, window.innerHeight);
+
+			ViewportContainer.screenWidth = App.screen.width;
+			ViewportContainer.screenHeight = App.screen.height;
+			ViewportContainer.resize(App.screen.width, App.screen.height, WORLD_WIDTH, WORLD_HEIGHT);
+		}, 300);
 	});
 })();

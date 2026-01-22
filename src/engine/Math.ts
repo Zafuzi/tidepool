@@ -1,4 +1,4 @@
-import { DEG_TO_RAD, Point } from "pixi.js";
+import { DEG_TO_RAD, Point, type PointData } from "pixi.js";
 
 export function NumberInRange(min: number, max: number): number {
 	return Math.random() * (max - min) + min;
@@ -31,9 +31,16 @@ export const Clamp = (d: number, min: number, max: number) => {
 	return t > max ? max : t;
 };
 
-export const ClampPoint = function (p: Point, min: number, max: number) {
-	p.x = Clamp(p.x, min, max);
-	p.y = Clamp(p.y, min, max);
+export const ClampPoint = function (p: PointData, min: number, max: number, writeP?: PointData): PointData {
+	if (writeP) {
+		writeP.x = Clamp(p.x, min, max);
+		writeP.y = Clamp(p.y, min, max);
+		return writeP;
+	} else {
+		p.x = Clamp(p.x, min, max);
+		p.y = Clamp(p.y, min, max);
+		return p;
+	}
 };
 
 export const Magnitude = (x: number, y: number) => Math.sqrt(x * x + y * y);
