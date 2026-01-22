@@ -4,8 +4,7 @@ import { Assets, Point } from "pixi.js";
 import Background from "./components/background.ts";
 import { Player } from "./components/player.ts";
 import { Sound } from "@pixi/sound";
-import { EntityText } from "../engine/Entity.ts";
-import { App } from "../engine/Application.ts";
+import { EntityText, App } from "../engine/Engine.ts";
 
 export default async function Game(viewport: Viewport) {
 	// -------------------- SETUP --------------------
@@ -64,8 +63,8 @@ export default async function Game(viewport: Viewport) {
 
 			const ambient_sound = Sound.from(Assets.get("underwater"));
 			ambient_sound.loop = true;
-			ambient_sound.play();
 			ambient_sound.volume = 0.3;
+			ambient_sound.play();
 
 			// clear start screen
 			start.destroy();

@@ -10,7 +10,7 @@ import {
 	Ticker,
 	TilingSprite,
 } from "pixi.js";
-import { App } from "./Application";
+import { App } from "./Engine.ts";
 import { Direction, Magnitude } from "./Math.ts";
 
 export type EntityOptions = {

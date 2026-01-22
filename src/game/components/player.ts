@@ -38,10 +38,6 @@ export class Player extends EntitySprite {
 		this.motion_sound.addSprites("rotate", { start: 0, end: 1 });
 		this.motion_sound.addSprites("thrust", { start: 3, end: 5 });
 		this.motion_sound.volume = 1;
-		this.motion_sound.autoPlayStart();
-
-		this.motion_sound.play("rotate");
-		console.log(this.motion_sound);
 
 		this.addChild(this.front);
 	}
