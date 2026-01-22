@@ -4,6 +4,8 @@
 
 Tidepool is a game engine built with Pixi and Typescript meant for deploying to [Itch.io](thttps://itch.io)
 
+<iframe frameborder="0" src="https://itch.io/embed/1441578?bg_color=0a2027&amp;fg_color=f4e1e1&amp;link_color=dd0033&amp;border_color=404648" width="552" height="167"><a href="https://zafuzi.itch.io/tidepool">Tidepool by zafuzi</a></iframe>
+
 ### Usage
 
 - use the template button above to clone this repo into your own repo or clone the repo locally
