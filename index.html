@@ -30,17 +30,14 @@
 			font-size: 24px;
 			position: absolute;
 			bottom: 20px;
-			left: 20px;
+			left: 50%;
 
-			width: auto;
-			max-width: calc(100% - 40px);
+			width: 500px;
 
-			align-self: end;
 			justify-content: center;
 			align-items: center;
 			text-align: center;
 			padding: 20px;
-			width: 100%;
 			color: #ffffff;
 
 			background: rgba(255, 255, 255, 0.15);
@@ -48,13 +45,18 @@
 			-webkit-backdrop-filter: blur(10px);
 			border: 1px solid rgba(255, 255, 255, 0.2);
 			border-radius: 12px;
+			transform: translateX(-50%);
 		}
 	</style>
 </head>
 
 <body>
 	<div id="player_stats">
-		<p><strong> 🚀 <span id="player_stats_velocity">0, 0</span></strong></p>
+		<p>
+			<strong> velocity </strong>
+			<br />
+			(<span id="player_stats_velocity">0, 0</span>)
+		</p>
 	</div>
 	<canvas id="game_canvas"></canvas>
 	<script src="src/app.ts"
