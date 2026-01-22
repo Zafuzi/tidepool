@@ -34,10 +34,7 @@ export class Squid extends EntitySprite {
             this.velocity = pos.multiplyScalar(-3.0);
         }
 
-        console.log("Rotating to player");
-        const playerDir = Azimuth(this.position, this.player.position);
-        this.rotation = playerDir;
-        console.log("playerDir", playerDir);
+        this.faceEntity(this.player);
 
 		this.newtonian(ticker);
 	};

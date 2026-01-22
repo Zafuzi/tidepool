@@ -11,7 +11,7 @@ import {
 	TilingSprite,
 } from "pixi.js";
 import { App } from "./Engine.ts";
-import { Direction, Magnitude } from "./Math.ts";
+import { Azimuth, Direction, Magnitude } from "./Math.ts";
 
 export type EntityOptions = {
 	position?: Point;
@@ -106,6 +106,12 @@ export class Entity extends Container {
 		const localVelY = worldVelocity.x * sin + worldVelocity.y * cos;
 
 		return new Point(localVelX, localVelY);
+	}
+
+	// set rotation to face another entity
+	faceEntity(entity: Entity) {
+		const dir = Azimuth(this.position, entity.position);
+		this.rotation = dir;
 	}
 }
 
