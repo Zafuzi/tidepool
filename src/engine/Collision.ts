@@ -1,5 +1,11 @@
 import { Point, type PointData, type ObservablePoint } from "pixi.js";
 
+
+// TODO: make rectangles work with entity rotation - maybe pass in
+// a rotation angle or somehow make the rectangle CollisionBody type include
+// a rotation?  Dunno.
+
+
 // Collision body type: null (no body), number (circular radius), or Point (rectangular size)
 export type CollisionBody = null | number | Point;
 
