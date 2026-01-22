@@ -1,11 +1,9 @@
 import { EntitySprite } from "../../engine/Engine.ts";
-import { Cartesian } from "../../engine/Math.ts";
 import { Point, Ticker } from "pixi.js";
 import { EntityGraphic } from "../../engine/Entity.ts";
 import { ZRoll } from "../../engine/Math.ts";
 import { App } from "../../engine/Engine.ts";
 import { Player } from "./player.ts";
-
 
 export class Squid extends EntitySprite {
 	private front: EntityGraphic = new EntityGraphic({ position: new Point(0, 0) });
