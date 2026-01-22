@@ -10,6 +10,20 @@
 				{
 					"alias": "bg",
 					"src": "Caustic_Free.jpg"
+				},
+				{
+					"alias": "movement",
+					"src": "movement.ogg",
+					"sprites": {
+						"rotate": {
+							"start": 0,
+							"end": 2
+						}
+					}
+				},
+				{
+					"alias":"underwater",
+					"src": "underwater.ogg"
 				}
 			]
 		}
