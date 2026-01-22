@@ -73,3 +73,7 @@ export const LocationAround = (min: number, max: number): Point => {
 export const Roll = (amount: number): number => {
 	return Math.round(NumberInRange(0, amount - 1));
 }
+
+export const ZRoll = (amount: number): boolean => {
+	return Roll(amount) === 0;
+}

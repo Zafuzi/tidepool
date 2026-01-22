@@ -2,7 +2,7 @@ import { EntitySprite } from "../../engine/Engine.ts";
 import { Cartesian } from "../../engine/Math.ts";
 import { Point, Ticker } from "pixi.js";
 import { EntityGraphic } from "../../engine/Entity.ts";
-import { Azimuth, Roll } from "../../engine/Math.ts";
+import { ZRoll } from "../../engine/Math.ts";
 import { App } from "../../engine/Engine.ts";
 import { Player } from "./player.ts";
 
@@ -28,7 +28,7 @@ export class Squid extends EntitySprite {
 
     update = (ticker: Ticker) => {
 
-        if (Roll(50) === 0 ) {
+        if (ZRoll(50)) {
             // thrust in the rotation direction
             const pos = Cartesian(this.rotation);
             this.velocity = pos.multiplyScalar(-3.0);
