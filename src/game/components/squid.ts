@@ -10,7 +10,6 @@ import { Player } from "./player.ts";
 export class Squid extends EntitySprite {
 	private front: EntityGraphic = new EntityGraphic({ position: new Point(0, 0) });
 
-    private age: number = 0;
 	private player: Player;
 
     constructor(player: Player) {
@@ -28,8 +27,6 @@ export class Squid extends EntitySprite {
     }
 
     update = (ticker: Ticker) => {
-        
-        this.age += 1;
 
         if (Roll(50) === 0 ) {
             // thrust in the rotation direction
