@@ -36,6 +36,8 @@ export default async function Game(viewport: Viewport) {
 	});
 
 	viewport.filters = [oldFilm];
+	background.onViewportMoved(viewport);
+
 	viewport.on("moved", () => {
 		background.onViewportMoved(viewport);
 	});
