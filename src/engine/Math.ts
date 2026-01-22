@@ -11,6 +11,9 @@ export function CoinFlip(): boolean {
 // converts a heading/angle to cartesian coords for a Distance of 1.0
 // passing in a vec as 'v' makes it write into that vec rather than
 // creating a new one.
+// JH: Again, the terms cartesion and azimuth were just my squiddy terminology,
+// and don't need to be kept .. not even sure "azimuth" is the
+// right word.
 export const Cartesian = function (az: number, v?: Point) {
 	az = az - Math.PI;
 	if (!v) return new Point(Math.sin(az), -Math.cos(az));
@@ -43,10 +46,13 @@ export const ClampPoint = function (p: PointData, min: number, max: number, writ
 	}
 };
 
+// JH: Seems like magnitude and distance are sort of the same thing,
+// but I not sure what youre doing here exactly
 export const Magnitude = (x: number, y: number) => Math.sqrt(x * x + y * y);
 export const Direction = (y: number, x: number) => Math.atan2(y, x);
 export const Distance = (p1: Point, p2: Point) => Math.hypot(p2.x - p1.x, p2.y - p1.y);
 
+// JH: not sure what this is for?
 export const LocationAround = (min: number, max: number): Point => {
 	// get a random angle around the ring
 	const rndAngle = NumberInRange(-360, 360) * DEG_TO_RAD; // use radians, saves converting degrees to radians

@@ -64,9 +64,15 @@ export class Entity extends Container {
 		});
 	}
 
+	// JH: the squids terminology doesn't need to be adhered to, and probably shouldn't
+	// E.g. "newtonian" was just what I called the function that did the rudimentary physics simulation
+	// And rotation velocity should be called "angular velocity"
+	// Friction could be called "damping", but I think friction is just as good for that
 	newtonian(ticker: Ticker) {
 		const deltaTime = ticker.deltaTime;
 
+		// JH: This physics code should probably be worked over a bit
+		// It looks kinda inefficient and verbose
 		this.velocity.x += this.acceleration.x;
 		this.velocity.y += this.acceleration.y;
 
@@ -90,6 +96,7 @@ export class Entity extends Container {
 		this.rotation += DEG_TO_RAD * this.rotation_velocity * deltaTime;
 	}
 
+	// JH: Not exactly sure what this is for?
 	forward(worldVelocity: Point): Point {
 		// Transform velocity from world space to local space
 		// Rotate the velocity vector by the negative of the entity's rotation
@@ -166,6 +173,7 @@ export class EntityText extends Entity {
 
 export type EntityGraphicOptions = {};
 
+// JH: Not exactly sure what this is for?
 export class EntityGraphic extends Entity {
 	public graphics: Graphics;
 
