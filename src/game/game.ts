@@ -59,10 +59,10 @@ export default async function Game(viewport: Viewport) {
 	window.addEventListener(
 		"click",
 		() => {
-			const player = new Player();
-			viewport.follow(player); // follow the player
+		const player = new Player();
+		viewport.follow(player); // follow the player
 
-			const squid = new Squid();
+		const squid = new Squid(player);
 			//viewport.follow(squid);
 
 			const ambient_sound = Sound.from(Assets.get("underwater"));
