@@ -7,7 +7,7 @@ import { Sound } from "@pixi/sound";
 import { EntityText, App } from "../engine/Engine.ts";
 
 export default async function Game(viewport: Viewport) {
-	// -------------------- SETUP --------------------
+	// -------------------- STARTUP --------------------
 	// Load your assets
 	await Assets.init({ manifest: "./manifest.json" });
 	await Assets.loadBundle("game-essential");
@@ -19,9 +19,6 @@ export default async function Game(viewport: Viewport) {
 	// add a background image
 	const background = new Background({ fileName: "bg", tileHeight: 42, tileWidth: 42 });
 
-	// -------------------- END SETUP --------------------
-
-	// -------------------- STARTUP --------------------
 	// turn off scrolling
 	viewport.pause = true;
 
