@@ -1,7 +1,7 @@
 import { Viewport } from "pixi-viewport";
 import { Point, Ticker } from "pixi.js";
 import "pixi.js/math-extras";
-import { App, WORLD_HEIGHT, WORLD_WIDTH } from "./engine/Engine.ts";
+import { App } from "./engine/Engine.ts";
 import Game from "./game/game.ts";
 import { initDevtools } from "@pixi/devtools";
 
@@ -19,8 +19,8 @@ export let ViewportContainer: Viewport;
 		resolution: window.devicePixelRatio,
 		autoDensity: true,
 		resizeTo: window, // Automatically resize to fit window
-		width: WORLD_WIDTH,
-		height: WORLD_HEIGHT,
+		width: App.WORLD_WIDTH,
+		height: App.WORLD_HEIGHT,
 		clearBeforeRender: false,
 		sharedTicker: true,
 		powerPreference: "high-performance",
@@ -30,8 +30,8 @@ export let ViewportContainer: Viewport;
 	ViewportContainer = new Viewport({
 		screenWidth: window.innerWidth,
 		screenHeight: window.innerHeight,
-		worldWidth: WORLD_WIDTH,
-		worldHeight: WORLD_HEIGHT,
+		worldWidth: App.WORLD_WIDTH,
+		worldHeight: App.WORLD_HEIGHT,
 		events: App.renderer.events, // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
 		ticker: App.ticker,
 	});
@@ -44,7 +44,7 @@ export let ViewportContainer: Viewport;
 			smooth: 100,
 			interrupt: true,
 			reverse: false,
-			center: new Point(WORLD_WIDTH / 2, WORLD_HEIGHT / 2),
+			center: new Point(App.WORLD_WIDTH / 2, App.WORLD_HEIGHT / 2),
 			lineHeight: 0.1,
 			axis: "all",
 			trackpadPinch: true,
