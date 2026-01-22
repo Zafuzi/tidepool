@@ -47,7 +47,7 @@ export class Player extends EntitySprite {
 		const [moveX, moveY] = InputMoveAction.value;
 		if (App.elapsed && App.elapsed % 10 === 0) {
 
-			console.log("Elapsed: ", App.elapsed)
+			//console.log("Elapsed: ", App.elapsed)
 		}
 
 		const pos = Cartesian(this.rotation);
