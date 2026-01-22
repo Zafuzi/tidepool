@@ -1,12 +1,12 @@
 {
 	"name": "tidepool",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "--- TIDEPOOL",
 	"main": "index.html",
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"preview": "vite preview",
+		"preview": "vite build && vite preview",
 		"prettier": "prettier . -w",
 		"deploy": "vite build && ./deploy.sh -p"
 	},
@@ -21,15 +21,20 @@
 	"license": "ISC",
 	"type": "module",
 	"devDependencies": {
+		"@brianchirls/game-input": "^0.1.1",
+		"@pixi/math-extras": "^7.4.3",
+		"pixi.js": "^8.15.0",
 		"prettier": "^3.8.0",
-		"serve": "^14.2.5",
+		"tslib": "^2.8.1",
 		"typescript": "^5.9.3",
 		"vite": "^7.3.1",
 		"vite-plugin-singlefile": "^2.3.0"
 	},
 	"dependencies": {
-		"gemmer": "^0.2.10",
-		"howler": "^2.2.4",
-		"pixi.js": "^8.15.0"
+		"@pixi/devtools": "^2.0.1",
+		"@pixi/sprite-tiling": "^7.4.3",
+		"pixi-filters": "^6.1.5",
+		"pixi-viewport": "^6.0.3",
+		"vue": "^3.5.27"
 	}
 }

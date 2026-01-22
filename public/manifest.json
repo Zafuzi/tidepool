@@ -1,0 +1,17 @@
+{
+	"bundles": [
+		{
+			"name": "game-essential",
+			"assets": [
+				{
+					"alias": "player",
+					"src": "player.png"
+				},
+				{
+					"alias": "bg",
+					"src": "Caustic_Free.jpg"
+				}
+			]
+		}
+	]
+}

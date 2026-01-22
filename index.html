@@ -1,33 +1,64 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<title>Tidepool</title>
-		<meta charset="UTF-8" />
-		<meta
-			content="width=device-width, initial-scale=1.0"
-			name="viewport" />
-		<style>
-			body,
-			html {
-				width: 100vw;
-				height: 100vh;
-				overflow: hidden;
-				margin: 0;
-				padding: 0;
-				display: flex;
-				flex-flow: column;
-				align-items: center;
-				justify-content: center;
-				background-color: black;
-			}
-			canvas {
-				overflow: hidden;
-			}
-		</style>
-	</head>
-	<body>
-		<script
-			src="src/game.ts"
+
+<head>
+	<title>Tidepool</title>
+	<meta charset="UTF-8" />
+	<meta content="width=device-width, initial-scale=1.0"
+		  name="viewport" />
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body,
+		html {
+			width: 100vw;
+			height: 100vh;
+			overflow: hidden;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-flow: column;
+			align-items: center;
+			justify-content: center;
+			background-color: black;
+			position: relative;
+		}
+
+		#player_stats {
+			font-size: 24px;
+			position: absolute;
+			bottom: 20px;
+			left: 20px;
+
+			width: auto;
+			max-width: calc(100% - 40px);
+
+			align-self: end;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			padding: 20px;
+			width: 100%;
+			color: #ffffff;
+
+			background: rgba(255, 255, 255, 0.15);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			border-radius: 12px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="player_stats">
+		<p><strong> 🚀 <span id="player_stats_velocity">0, 0</span></strong></p>
+	</div>
+	<canvas id="game_canvas"></canvas>
+	<script src="src/app.ts"
 			type="module"></script>
-	</body>
+</body>
+
 </html>
