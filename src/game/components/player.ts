@@ -45,9 +45,9 @@ export class Player extends EntitySprite {
 
 	update = (ticker: Ticker) => {
 		const [moveX, moveY] = InputMoveAction.value;
-		if (App.elapsed && App.elapsed % 10 === 0) {
 
-			console.log("Elapsed: ", App.elapsed)
+		if (App.tick % 100 === 0) {
+			console.log("Allow thrust", App.tick)
 		}
 
 		const pos = Cartesian(this.rotation);
