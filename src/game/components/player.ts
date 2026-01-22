@@ -6,8 +6,6 @@ import {
 	EntityGraphic,
 	EntitySprite,
 	InputMoveAction,
-	WORLD_HEIGHT,
-	WORLD_WIDTH,
 } from "../../engine/Engine.ts";
 import { Sound } from "@pixi/sound";
 
@@ -19,7 +17,7 @@ export class Player extends EntitySprite {
 	constructor() {
 		super({
 			fileName: "player",
-			position: new Point(WORLD_WIDTH / 2, WORLD_HEIGHT / 2),
+			position: new Point(App.WORLD_WIDTH / 2, App.WORLD_HEIGHT / 2),
 		});
 
 		this.sprite.anchor.set(0.5);

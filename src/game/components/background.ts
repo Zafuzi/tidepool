@@ -1,6 +1,6 @@
 import { ColorOverlayFilter } from "pixi-filters";
 import type { Viewport } from "pixi-viewport";
-import { EntitySprite, type EntitySpriteOptions, WORLD_HEIGHT, WORLD_WIDTH } from "../../engine/Engine.ts";
+import { App, EntitySprite, type EntitySpriteOptions } from "../../engine/Engine.ts";
 
 export default class Background extends EntitySprite {
 	constructor(options: EntitySpriteOptions) {
@@ -10,7 +10,7 @@ export default class Background extends EntitySprite {
 
 		this.zIndex = -1;
 		this.position.set(0, 0);
-		this.tileSprite.setSize(WORLD_WIDTH, WORLD_HEIGHT);
+		this.tileSprite.setSize(App.WORLD_WIDTH, App.WORLD_HEIGHT);
 		this.tileSprite.filters = [
 			new ColorOverlayFilter({
 				alpha: 0.9,

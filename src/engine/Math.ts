@@ -69,3 +69,7 @@ export const LocationAround = (min: number, max: number): Point => {
 
 	return ringPos.add(wallPos);
 };
+
+export const Roll = (amount: number): number => {
+	return Math.round(NumberInRange(0, amount - 1));
+}
