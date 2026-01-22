@@ -1,66 +1,72 @@
 <!doctype html>
 <html lang="en">
+	<head>
+		<title>Tidepool</title>
+		<meta charset="UTF-8" />
+		<meta
+			content="width=device-width, initial-scale=1.0"
+			name="viewport" />
 
-<head>
-	<title>Tidepool</title>
-	<meta charset="UTF-8" />
-	<meta content="width=device-width, initial-scale=1.0"
-		  name="viewport" />
-	<style>
-		* {
-			box-sizing: border-box;
-		}
+		<link
+			rel="icon"
+			type="image/x-icon"
+			href="./favicon.ico" />
 
-		body,
-		html {
-			width: 100vw;
-			height: 100vh;
-			overflow: hidden;
-			margin: 0;
-			padding: 0;
-			display: flex;
-			flex-flow: column;
-			align-items: center;
-			justify-content: center;
-			background-color: black;
-			position: relative;
-		}
+		<style>
+			* {
+				box-sizing: border-box;
+			}
 
-		#player_stats {
-			font-size: 24px;
-			position: absolute;
-			bottom: 20px;
-			left: 50%;
+			body,
+			html {
+				width: 100vw;
+				height: 100vh;
+				overflow: hidden;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				flex-flow: column;
+				align-items: center;
+				justify-content: center;
+				background-color: black;
+				position: relative;
+			}
 
-			width: 500px;
+			#player_stats {
+				font-size: 24px;
+				position: absolute;
+				bottom: 20px;
+				left: 50%;
 
-			justify-content: center;
-			align-items: center;
-			text-align: center;
-			padding: 20px;
-			color: #ffffff;
+				width: 500px;
 
-			background: rgba(255, 255, 255, 0.15);
-			backdrop-filter: blur(10px);
-			-webkit-backdrop-filter: blur(10px);
-			border: 1px solid rgba(255, 255, 255, 0.2);
-			border-radius: 12px;
-			transform: translateX(-50%);
-		}
-	</style>
-</head>
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+				padding: 20px;
+				color: #ffffff;
 
-<body>
-	<div id="player_stats">
-		<p>
-			<strong> velocity </strong>
-			<br />
-			(<span id="player_stats_velocity">0, 0</span>)
-		</p>
-	</div>
-	<canvas id="game_canvas"></canvas>
-	<script src="src/app.ts"
+				background: rgba(255, 255, 255, 0.15);
+				backdrop-filter: blur(10px);
+				-webkit-backdrop-filter: blur(10px);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				border-radius: 12px;
+				transform: translateX(-50%);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="player_stats">
+			<p>
+				<strong> velocity </strong>
+				<br />
+				(<span id="player_stats_velocity">0, 0</span>)
+			</p>
+		</div>
+		<canvas id="game_canvas"></canvas>
+		<script
+			src="src/app.ts"
 			type="module"></script>
-</body>
-
+	</body>
 </html>
