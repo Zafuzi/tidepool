@@ -1,22 +1,19 @@
 ![Screenshot of Tidepool](readme_screenshot.png)
 
-<div style="display: flex; gap: 24px; align-items: center; justify-content: space-between; border-bottom: 2px solid #dd0033; padding: 26px 0; margin: 26px 0;">
-    <p style="font-size: 42px; font-weight: bold;">Tidepool</p>
-    <a href="https://zafuzi.itch.io/tidepool" style="background-color:#dd0033; color: white; border: 2px solid #dd0033; padding: 16px 26px; opacity: 0.9; text-decoration: none;">
-        View on itch.io
-    </a>
-</div>
+# Tidepool
+
+[View on itch.io](https://zafuzi.itch.io/tidepool)
 
 Tidepool is a game engine built with Pixi and Typescript
 
-### Usage
+## Usage
 
 - use the template button above to clone this repo into your own repo or clone the repo locally
 - install dependencies: `npm install`
 - run development server: `npm run dev`
 - build for production: `npm run build`
 
-### Structure
+## Structure
 
 - `src/engine/`
     - Core engine files
@@ -27,7 +24,7 @@ Tidepool is a game engine built with Pixi and Typescript
     - Entry point that loads the game via Vite
     - Also where I like to write my HUD and menus
 
-### Distribute
+## Distribution
 
 Tidepool is set up to publish to itch using butler.
 
