@@ -3,11 +3,14 @@ import { Point, Ticker } from "pixi.js";
 import "pixi.js/math-extras";
 import { App, WORLD_HEIGHT, WORLD_WIDTH } from "./engine/Engine.ts";
 import Game from "./game/game.ts";
+import { initDevtools } from "@pixi/devtools";
 
 // World container - scales to fit window while maintaining aspect ratio
 export let ViewportContainer: Viewport;
 
 (async () => {
+	await initDevtools({ app: App });
+
 	await App.init({
 		background: "#000",
 		roundPixels: true,
@@ -53,9 +56,8 @@ export let ViewportContainer: Viewport;
 	// Initialize your game
 	App.stage.addChild(ViewportContainer);
 
-	App.elapsed = 0;
 	App.ticker.add((ticker: Ticker) => {
-		App.elapsed! += Math.floor(ticker.elapsedMS)
+		App.tick++
 	})
 
 	await Game(ViewportContainer);
