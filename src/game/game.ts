@@ -3,6 +3,7 @@ import { type Viewport } from "pixi-viewport";
 import { Assets, Point } from "pixi.js";
 import Background from "./components/background.ts";
 import { Player } from "./components/player.ts";
+import { Squid } from "./components/squid.ts";
 import { Sound } from "@pixi/sound";
 import { EntityText, App } from "../engine/Engine.ts";
 
@@ -55,8 +56,11 @@ export default async function Game(viewport: Viewport) {
 	window.addEventListener(
 		"click",
 		() => {
-			const player = new Player();
-			viewport.follow(player); // follow the player
+		const player = new Player();
+		viewport.follow(player); // follow the player
+
+		const squid = new Squid(player);
+			//viewport.follow(squid);
 
 			const ambient_sound = Sound.from(Assets.get("underwater"));
 			ambient_sound.loop = true;
@@ -68,7 +72,7 @@ export default async function Game(viewport: Viewport) {
 			viewport.removeChild(start);
 
 			// Add the game objects to the world container...
-			viewport.addChild(player, background);
+			viewport.addChild(player, squid, background);
 
 			// turn scrolling back on
 			viewport.pause = false;

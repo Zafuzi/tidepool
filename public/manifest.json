@@ -8,6 +8,10 @@
 					"src": "player.png"
 				},
 				{
+					"alias": "squid",
+					"src": "squid.png"
+				},
+				{
 					"alias": "bg",
 					"src": "Caustic_Free.jpg"
 				},
