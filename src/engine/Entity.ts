@@ -70,14 +70,8 @@ export class Entity extends Container {
 		this.velocity.x += this.acceleration.x;
 		this.velocity.y += this.acceleration.y;
 
-		let speed = Magnitude(this.velocity.x, this.velocity.y);
-		let angle = Direction(this.velocity.y, this.velocity.x);
-
-		if (speed > this.friction.x) {
-			speed -= this.friction.x;
-		} else {
-			speed = 0;
-		}
+		const angle = Direction(this.velocity.y, this.velocity.x);
+		const speed = Math.max(0, Magnitude(this.velocity.x, this.velocity.y) - this.friction.x);
 
 		this.velocity.x = Math.cos(angle) * speed;
 		this.velocity.y = Math.sin(angle) * speed;
