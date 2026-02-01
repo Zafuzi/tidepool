@@ -8,6 +8,10 @@
 					"src": "player.png"
 				},
 				{
+					"alias": "thing",
+					"src": "thing.png"
+				},
+				{
 					"alias": "bg",
 					"src": "Caustic_Free.jpg"
 				},
@@ -20,6 +24,10 @@
 							"end": 2
 						}
 					}
+				},
+				{
+					"alias": "bubble",
+					"src": "bubble.wav"
 				},
 				{
 					"alias": "underwater",
