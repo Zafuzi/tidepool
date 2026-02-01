@@ -47,21 +47,11 @@ export const Magnitude = (x: number, y: number) => Math.sqrt(x * x + y * y);
 export const Direction = (y: number, x: number) => Math.atan2(y, x);
 export const Distance = (p1: Point, p2: Point) => Math.hypot(p2.x - p1.x, p2.y - p1.y);
 
-export const LocationAround = (min: number, max: number): Point => {
+export const LocationAround = (position: Point, minDistance: number, maxDistance: number): Point => {
 	// get a random angle around the ring
-	const rndAngle = NumberInRange(-360, 360) * DEG_TO_RAD; // use radians, saves converting degrees to radians
+	const angle = Math.round(NumberInRange(0, 360)) * DEG_TO_RAD; // use radians, saves converting degrees to radians
 
-	// determine position
-	const cX = Math.sin(rndAngle);
-	const cZ = Math.cos(rndAngle);
-
-	let ringPos = new Point(cX, cZ);
-	ringPos.multiplyScalar(min, ringPos);
-
-	let wallPos = new Point(cX, cZ);
-	wallPos.multiplyScalar(max, wallPos);
-
-	return ringPos.add(wallPos);
+	return position.add(Cartesian(angle).multiplyScalar(NumberInRange(minDistance, maxDistance)))
 };
 
 export const Roll = (amount: number): number => {
