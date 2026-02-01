@@ -18,11 +18,11 @@ export class Player extends EntitySprite {
 		super({
 			fileName: "player",
 			position: new Point(App.WORLD_WIDTH / 2, App.WORLD_HEIGHT / 2),
+			friction: new Point(0.99, 0.99),
+			rotation_friction: 0.98,
 		});
 
 		this.sprite.anchor.set(0.5);
-		this.friction.set(1 / 60);
-		this.rotation_friction = 1 / 60;
 
 		this.front.alpha = 0.8;
 		this.front.graphics.circle(0, 0, 20);
@@ -45,7 +45,7 @@ export class Player extends EntitySprite {
 		const [moveX, moveY] = InputMoveAction.value;
 
 		if (App.tick % 100 === 0) {
-			console.log("Allow thrust", App.tick)
+			// console.log("Allow thrust", App.tick)
 		}
 
 		const pos = Cartesian(this.rotation);
