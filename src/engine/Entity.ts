@@ -1,6 +1,7 @@
 import {
 	Assets,
 	Container,
+	type ContainerOptions,
 	DEG_TO_RAD,
 	Graphics,
 	HTMLText,
@@ -13,32 +14,46 @@ import {
 import { App } from "./Engine.ts";
 import { Direction, Magnitude } from "./Math.ts";
 
-export type EntityOptions = {
-	position?: Point;
+export type EntityOptions = ContainerOptions & {
 	alive?: boolean;
+
+	velocity?: Point;
+	acceleration?: Point;
+	friction?: Point;
+
+	rotation_velocity?: number;
+	rotation_friction?: number;
 };
 
 export class Entity extends Container {
 	public alive: boolean = true;
+
 	public velocity: Point = new Point(0, 0);
 	public acceleration: Point = new Point(0, 0);
-	public friction: Point = new Point(0, 0);
+	public friction: Point = new Point(1, 1);
 
 	public rotation_velocity: number = 0;
-	public rotation_friction: number = 0;
+	public rotation_friction: number = 1;
 
 	public update: null | ((...args: any[]) => void) = null;
 
 	private tickerCallback?: (time: Ticker) => void;
 
-	constructor(options: EntityOptions = {}) {
-		super();
-		const { position, alive } = options;
+	constructor(options: EntityOptions) {
+		super({
+			...options,
+			interactiveChildren: false,
+		});
 
-		this.x = position?.x || 0;
-		this.y = position?.y || 0;
+		const { alive, acceleration, friction, rotation_friction, rotation_velocity } = options;
+
 		this.alive = alive ?? true;
-		this.interactiveChildren = false;
+
+		this.acceleration = acceleration ?? new Point(0, 0);
+		this.friction = friction ?? new Point(1, 1);
+
+		this.rotation_friction = rotation_friction ?? 1;
+		this.rotation_velocity = rotation_velocity ?? 0;
 
 		this.tickerCallback = (time: Ticker) => {
 			if (this.alive && typeof this.update === "function") {
@@ -71,12 +86,12 @@ export class Entity extends Container {
 		this.velocity.y += this.acceleration.y;
 
 		const angle = Direction(this.velocity.y, this.velocity.x);
-		const speed = Math.max(0, Magnitude(this.velocity.x, this.velocity.y) - this.friction.x);
+		const speed = Math.max(0, Magnitude(this.velocity.x, this.velocity.y));
 
-		this.velocity.x = Math.cos(angle) * speed;
-		this.velocity.y = Math.sin(angle) * speed;
+		this.velocity.x = Math.cos(angle) * speed * this.friction.x;
+		this.velocity.y = Math.sin(angle) * speed * this.friction.y;
 
-		this.rotation_velocity *= 1 - this.rotation_friction;
+		this.rotation_velocity *= this.rotation_friction;
 
 		this.position.x += this.velocity.x * deltaTime;
 		this.position.y += this.velocity.y * deltaTime;
