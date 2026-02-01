@@ -1,12 +1,5 @@
 import { Assets, Point, Ticker } from "pixi.js";
-import {
-	App,
-	Cartesian,
-	Clamp,
-	EntityGraphic,
-	EntitySprite,
-	InputMoveAction,
-} from "../../engine/Engine.ts";
+import { App, Cartesian, Clamp, EntityGraphic, EntitySprite, InputMoveAction } from "../../engine/Engine.ts";
 import { Sound } from "@pixi/sound";
 
 export class Player extends EntitySprite {

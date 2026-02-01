@@ -51,9 +51,9 @@ export const LocationAround = (position: Point, minDistance: number, maxDistance
 	// get a random angle around the ring
 	const angle = Math.round(NumberInRange(0, 360)) * DEG_TO_RAD; // use radians, saves converting degrees to radians
 
-	return position.add(Cartesian(angle).multiplyScalar(NumberInRange(minDistance, maxDistance)))
+	return position.add(Cartesian(angle).multiplyScalar(NumberInRange(minDistance, maxDistance)));
 };
 
 export const Roll = (amount: number): number => {
 	return Math.round(NumberInRange(0, amount - 1));
-}
+};

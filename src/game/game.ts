@@ -4,7 +4,20 @@ import { Assets, DEG_TO_RAD, Point } from "pixi.js";
 import Background from "./components/background.ts";
 import { Player } from "./components/player.ts";
 import { Sound } from "@pixi/sound";
-import { EntityText, App, EntitySprite, Entity, Direction, Cartesian, Magnitude, Azimuth, Distance, NumberInRange, LocationAround, CoinFlip } from "../engine/Engine.ts";
+import {
+	EntityText,
+	App,
+	EntitySprite,
+	Entity,
+	Direction,
+	Cartesian,
+	Magnitude,
+	Azimuth,
+	Distance,
+	NumberInRange,
+	LocationAround,
+	CoinFlip,
+} from "../engine/Engine.ts";
 import { collideEntities } from "../engine/Collision.ts";
 
 export default async function Game(viewport: Viewport) {
@@ -69,34 +82,39 @@ export default async function Game(viewport: Viewport) {
 
 			const bubble_sound = Sound.from(Assets.get("bubble"));
 			thing.update = function (ticker) {
-				if (collideEntities({
-					body: new Point(thing.width, thing.height),
-					position: thing.position,
-					scale: thing.scale,
-				}, {
-					body: new Point(player.width, player.height),
-					position: player.position,
-					scale: player.scale,
-				})) {
+				if (
+					collideEntities(
+						{
+							body: new Point(thing.width, thing.height),
+							position: thing.position,
+							scale: thing.scale,
+						},
+						{
+							body: new Point(player.width, player.height),
+							position: player.position,
+							scale: player.scale,
+						},
+					)
+				) {
 					thing.position = LocationAround(player.position, 300, 1000);
 					bubble_sound.play();
 					thing.rotation = NumberInRange(0, 360) * DEG_TO_RAD;
 					if (CoinFlip()) {
-						thing.rotation_velocity *= -1
+						thing.rotation_velocity *= -1;
 					}
 				}
 
 				if (App.tick % 500 === 0) {
 					if (CoinFlip()) {
-						thing.rotation_velocity *= -1
+						thing.rotation_velocity *= -1;
 					}
-					thing.acceleration = Cartesian(thing.rotation).multiplyScalar(2)
+					thing.acceleration = Cartesian(thing.rotation).multiplyScalar(2);
 				}
 
-				thing.velocity = Cartesian(thing.rotation)
-				thing.acceleration = thing.acceleration.multiplyScalar(0.99)
-				thing.newtonian(ticker)
-			}
+				thing.velocity = Cartesian(thing.rotation);
+				thing.acceleration = thing.acceleration.multiplyScalar(0.99);
+				thing.newtonian(ticker);
+			};
 
 			viewport.follow(player); // follow the player
 			viewport.setZoom(0.1);

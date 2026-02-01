@@ -57,8 +57,8 @@ export let ViewportContainer: Viewport;
 	App.stage.addChild(ViewportContainer);
 
 	App.ticker.add((ticker: Ticker) => {
-		App.tick++
-	})
+		App.tick++;
+	});
 
 	await Game(ViewportContainer);
 
